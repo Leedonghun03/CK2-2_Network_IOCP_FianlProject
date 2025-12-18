@@ -101,7 +101,7 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
         {
             GameObject cameraObject = new GameObject($"Player Camera");
             Camera playerCamera = cameraObject.AddComponent<Camera>();
-            cameraObject.AddComponent<MouseLook>();
+            //cameraObject.AddComponent<MouseLook>();
             playerCamera.transform.parent = playerObj.transform;
         }
         PlayerMovement playerMovement = playerObj.AddComponent<PlayerMovement>();

@@ -30,7 +30,11 @@ void PacketManager::Init(const UINT32 maxClient_)
 	mRecvFuntionDictionary[(int)PACKET_ID::INVENTORY_INFO_REQUEST] = &PacketManager::ProcessInventoryInfoRequest;
 	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_ADD_REQUEST] = &PacketManager::ProcessItemAddRequest;
 	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_USE_REQUEST] = &PacketManager::ProcessItemUseRequest;
-				
+	// 퀘스트 패킷 딕셔너리 등록
+	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_TALK_REQUEST] = &PacketManager::ProcessQuestTalk;
+	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_ACCEPT_REQUEST] = &PacketManager::ProcessQuestAccept;
+	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_COMPLETE_REQUEST] = &PacketManager::ProcessQuestComplete;
+
 	CreateCompent(maxClient_);
 
 	mRedisMgr = new RedisManager;// std::make_unique<RedisManager>();
@@ -53,7 +57,7 @@ void PacketManager::CreateCompent(const UINT32 maxClient_)
 bool PacketManager::Run()
 {	
 	//if (mRedisMgr->Run("127.0.0.1", 6379, 1) == false)
-	if (mRedisMgr->Run("127.0.0.1", 1234, 1) == false)
+	if (mRedisMgr->Run("127.0.0.1", 5004, 1) == false)
 	{
 		return false;
 	}
@@ -450,7 +454,7 @@ void PacketManager::ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSiz
 	pRoom->NotifyChat(clientIndex_, reqUser->GetUserId().c_str(), pRoomChatReqPacketet->Message);		
 }
 
-// ================= 이벤토리 =========================
+// ================= 인벤토리 =========================
 
 void PacketManager::ProcessInventoryInfoRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
@@ -534,7 +538,94 @@ void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize
 	SendPacketFunc(clientIndex_, sizeof(ITEM_USE_RESPONSE_PACKET), (char*)&response);
 }
 
-// ====================================================
+// ====================== Quest =====================
+
+void PacketManager::ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	UNREFERENCED_PARAMETER(packetSize_);
+
+	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
+	if (!pUser) return;
+
+	auto pReq = reinterpret_cast<QUEST_TALK_REQUEST_PACKET*>(pPacket_);
+
+	QUEST_TALK_RESPONSE_PACKET res;
+	res.Result = (UINT16)ERROR_CODE::NONE;
+
+	res.NpcId = pReq->NpcId;
+	res.QuestId = 1;
+
+	res.State = (UINT8)pUser->GetQuestState();
+	res.Current = 0;
+	res.Required = 1;
+
+	strcpy_s(res.Title, "1. Monster");
+	strcpy_s(res.Desc, "Eliminate One Monster");
+
+	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+}
+
+void PacketManager::ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	UNREFERENCED_PARAMETER(packetSize_);
+
+	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
+	if (!pUser) return;
+
+	auto pReq = reinterpret_cast<QUEST_ACCEPT_REQUEST_PACKET*>(pPacket_);
+
+	QUEST_ACCEPT_RESPONSE_PACKET res;
+	res.QuestId = pReq->QuestId;
+
+	if (pUser->GetQuestState() != QUEST_STATE::NOT_ACCEPTED)
+	{
+		res.Result = (UINT16)ERROR_CODE::QUEST_ALREADY_ACCEPTED;
+		res.State = (UINT8)pUser->GetQuestState();
+		SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+		return;
+	}
+
+	pUser->SetQuestState(QUEST_STATE::IN_PROGRESS);
+
+	res.Result = (UINT16)ERROR_CODE::NONE;
+	res.State = (UINT8)pUser->GetQuestState();
+	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+}
+
+void PacketManager::ProcessQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	UNREFERENCED_PARAMETER(packetSize_);
+
+	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
+	if (!pUser) return;
+
+	auto pReq = reinterpret_cast<QUEST_COMPLETE_REQUEST_PACKET*>(pPacket_);
+
+	QUEST_COMPLETE_RESPONSE_PACKET res;
+	res.QuestId = pReq->QuestId;
+
+	if (pUser->GetQuestState() == QUEST_STATE::NOT_ACCEPTED)
+	{
+		res.Result = (UINT16)ERROR_CODE::QUEST_NOT_ACCEPTED;
+		res.State = (UINT8)pUser->GetQuestState();
+		SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+		return;
+	}
+
+	if (pUser->GetQuestState() == QUEST_STATE::COMPLETED)
+	{
+		res.Result = (UINT16)ERROR_CODE::QUEST_ALREADY_COMPLETED;
+		res.State = (UINT8)pUser->GetQuestState();
+		SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+		return;
+	}
+
+	pUser->SetQuestState(QUEST_STATE::COMPLETED);
+
+	res.Result = (UINT16)ERROR_CODE::NONE;
+	res.State = (UINT8)pUser->GetQuestState();
+	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
+}
 
 void PacketManager::TempFindPath(const std::string& endPosStr, User& user, Room& room)
 {

@@ -72,6 +72,11 @@ private:
 	// 아이템 사용 요청 처리
 	void ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
+	void ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+
+
 	void TempFindPath(const std::string& endPosStr, User& user, Room& room);
 
 
