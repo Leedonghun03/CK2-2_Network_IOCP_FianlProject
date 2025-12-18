@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -6,7 +7,17 @@ public class MainMenuGUI : MonoBehaviour, IPacketReceiver
 {
     void Awake()
     {
-        Client.Start();
+        Debug.Log("=== [MainMenuGUI] Awake 시작 ===");  // ★ 이 로그가 나오나요?
+
+        try
+        {
+            Client.Start();
+            Debug.Log("[MainMenuGUI] Client.Start() 완료");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[MainMenuGUI] 에러: {e}");
+        }
     }
 
     // Start is called before the first frame update

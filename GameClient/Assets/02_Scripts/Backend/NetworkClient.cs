@@ -43,14 +43,28 @@ public unsafe class NetworkClient
 
     public void Start()
     {
-        socket.Connect(endPoint);
-        if (socketProtocol == ProtocolType.Tcp)
+        Debug.Log($"[NetworkClient] Start - Protocol: {socketProtocol}, EndPoint: {endPoint}");  // ★ 추가
+
+        try
         {
-            new Thread(ReadTcpDataThread).Start();
+            socket.Connect(endPoint);
+            Debug.Log($"[NetworkClient] Connect 성공! {endPoint}");  // ★ 추가
+
+            if (socketProtocol == ProtocolType.Tcp)
+            {
+                Debug.Log("[NetworkClient] TCP ReadThread 시작");  // ★ 추가
+                new Thread(ReadTcpDataThread).Start();
+            }
+            else if (socketProtocol == ProtocolType.Udp)
+            {
+                Debug.Log("[NetworkClient] UDP ReadThread 시작");  // ★ 추가
+                new Thread(ReadUdpDataThread).Start();
+            }
         }
-        else if (socketProtocol == ProtocolType.Udp)
+        catch (Exception e)
         {
-            new Thread(ReadUdpDataThread).Start();
+            Debug.LogError($"[NetworkClient] Start 에러: {e.Message}\n{e.StackTrace}");  // ★ 추가
+            throw;
         }
     }
 

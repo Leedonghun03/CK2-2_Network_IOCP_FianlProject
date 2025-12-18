@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using UnityEngine;
 
 public static unsafe class Client
@@ -9,10 +10,27 @@ public static unsafe class Client
 
     public static void Start()
     {
-        TCP.Start();
-        UDP.Start();
-        TCP.OnDisconnect += OnDisconnect;
-        Application.wantsToQuit += OnApplicationQuit;
+        Debug.Log("=== [Client] Start 시작 ===");  // ★ 추가
+
+        try
+        {
+            Debug.Log($"[Client] TCP 연결 시도... {IP}:5004");
+            TCP.Start();
+            Debug.Log("[Client] TCP 연결 성공!");
+
+            Debug.Log($"[Client] UDP 연결 시도... {IP}:5025");
+            UDP.Start();
+            Debug.Log("[Client] UDP 연결 성공!");
+
+            TCP.OnDisconnect += OnDisconnect;
+            Application.wantsToQuit += OnApplicationQuit;
+
+            Debug.Log("[Client] Start 완료!");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[Client] Start 에러: {e.Message}\n{e.StackTrace}");
+        }
     }
 
     private static bool OnApplicationQuit()
