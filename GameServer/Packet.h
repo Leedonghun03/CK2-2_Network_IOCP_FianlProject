@@ -129,6 +129,17 @@ enum class  PACKET_ID : UINT16
 	ITEM_MOVE_REQUEST = 310,           // 아이템 이동 (슬롯 변경)
 	ITEM_MOVE_RESPONSE = 311,          // 아이템 이동 응답
 
+	// Combat System
+	PLAYER_ATTACK_REQUEST = 401,
+	PLAYER_ATTACK_RESPONSE = 402,
+
+	// Enemy System
+	ENEMY_SPAWN_NOTIFY = 421,
+	ENEMY_DESPAWN_NOTIFY = 422,
+	ENEMY_PATROL_UPDATE = 423,
+	ENEMY_DAMAGE_NOTIFY = 424,
+	ENEMY_DEATH_NOTIFY = 425,
+
 	// Quest
 	QUEST_TALK_REQUEST = 601,
 	QUEST_TALK_RESPONSE = 602,
@@ -296,7 +307,7 @@ struct MOVE_PATH_RESPONSE_PACKET : public PACKET_HEADER
 	MOVE_PATH_RESPONSE_PACKET() : PACKET_HEADER(sizeof(*this), PACKET_ID::MOVE_PATH_RESPONSE) {}
 };
 
-// ================= 이벤토리 =========================
+// ================= 인벤토리 =========================
 // 인벤토리 정보 요청
 struct INVENTORY_INFO_REQUEST_PACKET : public PACKET_HEADER
 {
@@ -366,9 +377,98 @@ struct ITEM_USE_RESPONSE_PACKET : public PACKET_HEADER
 		PACKET_HEADER(sizeof(*this), PACKET_ID::ITEM_USE_RESPONSE) {
 	}
 };
+// ====================================================
+
+// ===================== Attack =========================
+// 플레이어 공격 요청
+struct PLAYER_ATTACK_REQUEST_PACKET : public PACKET_HEADER
+{
+	Vector3 attackPosition;
+	Vector3 attackDirection;
+
+	PLAYER_ATTACK_REQUEST_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::PLAYER_ATTACK_REQUEST) {
+	}
+};
+
+// 플레이어 공격 응답
+struct PLAYER_ATTACK_RESPONSE_PACKET : public PACKET_HEADER
+{
+	INT16 Result;
+	INT64 targetEnemyID;
+	INT32 damageAmount;
+
+	PLAYER_ATTACK_RESPONSE_PACKET()
+		: Result(0), targetEnemyID(0), damageAmount(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::PLAYER_ATTACK_RESPONSE) {
+	}
+};
+
+// 적 스폰 알림
+struct ENEMY_SPAWN_NOTIFY_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;
+	INT32 enemyType;
+	Vector3 position;
+	Quaternion rotation;
+	INT32 maxHealth;
+	INT32 currentHealth;
+
+	ENEMY_SPAWN_NOTIFY_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_SPAWN_NOTIFY) {
+	}
+};
+
+// 적 사라짐 알림
+struct ENEMY_DESPAWN_NOTIFY_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;
+
+	ENEMY_DESPAWN_NOTIFY_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DESPAWN_NOTIFY) {
+	}
+};
+
+// 적 패트롤 업데이트
+struct ENEMY_PATROL_UPDATE_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;
+	Vector3 position;
+	Quaternion rotation;
+	Vector3 velocity;
+
+	ENEMY_PATROL_UPDATE_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_PATROL_UPDATE) {
+	}
+};
+
+// 적 데미지 알림
+struct ENEMY_DAMAGE_NOTIFY_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;
+	INT64 attackerID;
+	INT32 damageAmount;
+	INT32 remainingHealth;
+
+	ENEMY_DAMAGE_NOTIFY_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DAMAGE_NOTIFY) {
+	}
+};
+
+// 적 사망 알림
+struct ENEMY_DEATH_NOTIFY_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;
+	INT64 killerID;
+
+	ENEMY_DEATH_NOTIFY_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DEATH_NOTIFY) {
+	}
+};
+// ====================================================
+
 
 // ===================== Quest =========================
-
 const int MAX_QUEST_TITLE_LEN = 32;
 const int MAX_QUEST_DESC_LEN = 64;
 
@@ -441,7 +541,7 @@ struct QUEST_COMPLETE_RESPONSE_PACKET : public PACKET_HEADER
 		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_COMPLETE_RESPONSE) {
 	}
 };
-
+// ====================================================
 
 #pragma pack(pop) //위에 설정된 패킹설정이 사라짐
 

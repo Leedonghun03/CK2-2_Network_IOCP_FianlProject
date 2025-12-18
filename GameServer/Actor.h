@@ -74,6 +74,9 @@ public:
 	const Vector3& GetPosition() const { return position;	}
 	const Quaternion& GetRotation() const { return rotation; }
 
+	void SetPosition(const Vector3& pos) { position = pos; }
+	void SetRotation(const Quaternion& rot) { rotation = rot; }
+
 	Vector3 UpdateMovement(float dx, float dy, Quaternion& rotation_)
 	{
 		const float SPEED = 20.0f;
@@ -96,7 +99,7 @@ public:
 		return motion;
 	}
 
-private:
+protected:
 	INT32 mIndex = -1;
 
 	INT32 mRoomIndex = -1;

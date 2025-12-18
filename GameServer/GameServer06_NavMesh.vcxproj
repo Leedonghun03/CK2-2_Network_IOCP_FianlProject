@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="CRedisConnEx.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="Inventory.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="UserManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NavMeshManager.cpp" />

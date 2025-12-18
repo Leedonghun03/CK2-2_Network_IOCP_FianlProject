@@ -30,10 +30,14 @@ void PacketManager::Init(const UINT32 maxClient_)
 	mRecvFuntionDictionary[(int)PACKET_ID::INVENTORY_INFO_REQUEST] = &PacketManager::ProcessInventoryInfoRequest;
 	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_ADD_REQUEST] = &PacketManager::ProcessItemAddRequest;
 	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_USE_REQUEST] = &PacketManager::ProcessItemUseRequest;
+
 	// 퀘스트 패킷 딕셔너리 등록
 	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_TALK_REQUEST] = &PacketManager::ProcessQuestTalk;
 	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_ACCEPT_REQUEST] = &PacketManager::ProcessQuestAccept;
 	mRecvFuntionDictionary[(int)PACKET_ID::QUEST_COMPLETE_REQUEST] = &PacketManager::ProcessQuestComplete;
+
+	// 공격 패킷 등록
+	mRecvFuntionDictionary[(int)PACKET_ID::PLAYER_ATTACK_REQUEST] = &PacketManager::ProcessPlayerAttack;
 
 	CreateCompent(maxClient_);
 
@@ -455,7 +459,6 @@ void PacketManager::ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSiz
 }
 
 // ================= 인벤토리 =========================
-
 void PacketManager::ProcessInventoryInfoRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
 	auto pUser = mUserManager->GetUserByConnIdx(clientIndex_);
@@ -537,9 +540,9 @@ void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize
 
 	SendPacketFunc(clientIndex_, sizeof(ITEM_USE_RESPONSE_PACKET), (char*)&response);
 }
+// =================================================
 
 // ====================== Quest =====================
-
 void PacketManager::ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
 	UNREFERENCED_PARAMETER(packetSize_);
@@ -626,10 +629,44 @@ void PacketManager::ProcessQuestComplete(UINT32 clientIndex_, UINT16 packetSize_
 	res.State = (UINT8)pUser->GetQuestState();
 	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
 }
+// =================================================
 
-void PacketManager::ProcessNPCQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+// ====================== Attack =====================
+void PacketManager::ProcessPlayerAttack(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
+	auto pAttackPacket = reinterpret_cast<PLAYER_ATTACK_REQUEST_PACKET*>(pPacket_);
+	auto pUser = mUserManager->GetUserByConnIdx(clientIndex_);
+
+	if (!pUser)
+	{
+		printf("[ProcessPlayerAttack] User not found: %d\n", clientIndex_);
+		return;
+	}
+
+	auto roomNum = pUser->GetCurrentRoom();
+	auto pRoom = mRoomManager->GetRoomByNumber(roomNum);
+
+	if (!pRoom)
+	{
+		printf("[ProcessPlayerAttack] Room not found: %d\n", roomNum);
+		return;
+	}
+
+	printf("[Attack] Player %lld attacking at (%.1f, %.1f, %.1f) dir(%.2f, %.2f, %.2f)\n",
+		(INT64)clientIndex_,
+		pAttackPacket->attackPosition.x,
+		pAttackPacket->attackPosition.y,
+		pAttackPacket->attackPosition.z,
+		pAttackPacket->attackDirection.x,
+		pAttackPacket->attackDirection.y,
+		pAttackPacket->attackDirection.z);
+
+	// 방에서 공격 처리
+	pRoom->ProcessPlayerAttack((INT64)clientIndex_,
+		pAttackPacket->attackPosition,
+		pAttackPacket->attackDirection);
 }
+// =================================================
 
 void PacketManager::TempFindPath(const std::string& endPosStr, User& user, Room& room)
 {

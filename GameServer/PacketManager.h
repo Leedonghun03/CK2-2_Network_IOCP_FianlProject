@@ -63,6 +63,7 @@ private:
 	void ProcessPlayerMovement(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	void ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
+	// ====================== Inventory =====================
 	// 인벤토리 정보 요청 처리
 	void ProcessInventoryInfoRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
@@ -71,9 +72,19 @@ private:
 
 	// 아이템 사용 요청 처리
 	void ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	// =================================================
 
+	// ====================== Quest =====================
 	// NPC 보상 처리 예시: 호진이형 이거 해줘
-	void ProcessNPCQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	// =================================================
+
+	// ====================== Attack =====================
+	// 플레이어 공격 처리 함수 추가
+	void ProcessPlayerAttack(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	// =================================================
 
 	void TempFindPath(const std::string& endPosStr, User& user, Room& room);
 

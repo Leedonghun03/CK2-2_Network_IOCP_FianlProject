@@ -3,22 +3,38 @@ using UnityEngine;
 
 public enum E_PACKET
 {
-    PLAYER_NAME,
-    PLAYER_NAME_SUCCESS,
-    PLAYER_JOINED,
-    CREATE_MATCH_PLAYER,
-    PLAYER_MOVEMENT,
-    UPDATE_PLAYER_MOVEMENT,
-    SEND_CHAT_MESSAGE,
-    RECEIVE_CHAT_MESSAGE,
-    PLAYER_LEFT,
+    PLAYER_NAME = 201,                  // 서버: LOGIN_REQUEST
+    PLAYER_NAME_SUCCESS = 202,          // 서버: LOGIN_RESPONSE
 
-    INVENTORY_INFO_REQUEST = 401,
-    INVENTORY_INFO_RESPONSE = 402,
-    ITEM_ADD_REQUEST = 403,
-    ITEM_ADD_RESPONSE = 404,
-    ITEM_USE_REQUEST = 406,
-    ITEM_USE_RESPONSE = 407,
+    PLAYER_JOINED = 208,                // 서버: ROOM_NEW_USER_NTF
+    CREATE_MATCH_PLAYER = 209,          // 서버: ROOM_USER_INFO_NTF
+
+    PLAYER_MOVEMENT = 218,              // 서버: PLAYER_MOVEMENT
+    UPDATE_PLAYER_MOVEMENT = 219,       // 서버: UPDATE_PLAYER_MOVEMENT
+
+    SEND_CHAT_MESSAGE = 221,            // 서버: ROOM_CHAT_REQUEST
+    RECEIVE_CHAT_MESSAGE = 223,         // 서버: ROOM_CHAT_NOTIFY
+
+    PLAYER_LEFT = 217,                  // 서버: ROOM_LEAVE_USER_NTF
+
+    // Inventory
+    INVENTORY_INFO_REQUEST = 301,
+    INVENTORY_INFO_RESPONSE = 302,
+    ITEM_ADD_REQUEST = 303,
+    ITEM_ADD_RESPONSE = 304,
+    ITEM_USE_REQUEST = 306,
+    ITEM_USE_RESPONSE = 307,
+
+    // Combat
+    PLAYER_ATTACK_REQUEST = 401,
+    PLAYER_ATTACK_RESPONSE = 402,
+
+    // Enemy
+    ENEMY_SPAWN_NOTIFY = 421,
+    ENEMY_DESPAWN_NOTIFY = 422,
+    ENEMY_PATROL_UPDATE = 423,
+    ENEMY_DAMAGE_NOTIFY = 424,
+    ENEMY_DEATH_NOTIFY = 425,
 
     QUEST_TALK_REQUEST = 501,
     QUEST_TALK_RESPONSE = 502,
@@ -145,7 +161,6 @@ struct P_PlayerLeft
 }
 
 // ================= 이벤토리 =========================
-
 [StructLayout(LayoutKind.Sequential, Size = 40)]
 public struct Item
 {
@@ -184,9 +199,107 @@ struct P_ItemUseRequest
     [MarshalAs(UnmanagedType.U2)]
     public ushort slotIndex;
 }
+// ===================================================
+
+// =================== Attack ===========================
+[StructLayout(LayoutKind.Sequential, Size = 24)]
+public struct P_PlayerAttackRequest
+{
+    [MarshalAs(UnmanagedType.Struct)]
+    public Vector3 attackPosition;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Vector3 attackDirection;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_PlayerAttackResponse
+{
+    [MarshalAs(UnmanagedType.I2)]
+    public short result;
+
+    [MarshalAs(UnmanagedType.I8)]
+    public long targetEnemyID;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int damageAmount;
+}
+
+// 적 패킷들
+[StructLayout(LayoutKind.Sequential)]
+public struct P_EnemySpawnNotify
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int enemyType;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Vector3 position;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Quaternion rotation;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int maxHealth;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int currentHealth;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_EnemyDespawnNotify
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_EnemyPatrolUpdate
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Vector3 position;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Quaternion rotation;
+
+    [MarshalAs(UnmanagedType.Struct)]
+    public Vector3 velocity;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_EnemyDamageNotify
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+
+    [MarshalAs(UnmanagedType.I8)]
+    public long attackerID;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int damageAmount;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int remainingHealth;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_EnemyDeathNotify
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+
+    [MarshalAs(UnmanagedType.I8)]
+    public long killerID;
+}
+
+// ===================================================
 
 // =================== 퀘스트 ===========================
-
 [StructLayout(LayoutKind.Sequential)]
 public struct P_QuestTalkRequest
 {
@@ -236,3 +349,4 @@ public struct P_QuestProgressNotify
     [MarshalAs(UnmanagedType.U2)] public ushort required;
     [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
 }
+// ===================================================

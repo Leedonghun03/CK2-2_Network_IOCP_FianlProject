@@ -207,6 +207,22 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
 
             // PlayerMovement에 카메라 참조 전달
             playerMovement.SetCamera(thirdPersonCam);
+
+            // 전투 컴포넌트 추가
+            PlayerCombat combat = playerObj.GetComponent<PlayerCombat>();
+            if (combat == null)
+            {
+                combat = playerObj.AddComponent<PlayerCombat>();
+
+                // 설정 (Inspector에서 보이는 값들)
+                combat.attackRange = 2.0f;
+                combat.attackWidth = 1.5f;
+                combat.attackHeight = 2.0f;
+                combat.attackDamage = 25;
+                combat.attackCooldown = 0.5f;
+                combat.hitboxDuration = 0.2f;
+                combat.showDebugBox = true;
+            }
         }
 
         // Player 컴포넌트 추가/가져오기

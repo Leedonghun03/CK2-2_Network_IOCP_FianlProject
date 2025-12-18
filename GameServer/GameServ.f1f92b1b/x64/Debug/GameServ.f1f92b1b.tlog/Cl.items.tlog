@@ -1,7 +1,8 @@
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\Inventory.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Inventory.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\main.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\main.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\NavMeshManager.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\NavMeshManager.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\Npc.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Npc.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\Packet.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Packet.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\PacketManager.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\PacketManager.obj
-C:\Users\PC\Network_IOCP_FianlProject\GameServer\unity.cpp;C:\Users\PC\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\unity.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\Enemy.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Enemy.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\Inventory.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Inventory.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\main.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\main.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\NavMeshManager.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\NavMeshManager.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\Npc.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Npc.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\Packet.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\Packet.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\PacketManager.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\PacketManager.obj
+C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\unity.cpp;C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\GameServ.f1f92b1b\x64\Debug\unity.obj

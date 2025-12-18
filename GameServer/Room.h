@@ -4,8 +4,12 @@
 #include "UserManager.h"
 #include "Packet.h"
 #include "NavMeshManager.h"
+#include "Enemy.h"
+#include "EnemySpawner.h"
 
 #include <functional>
+#include <unordered_map>
+#include <thread>
 
 void CopyUserID(char* userID, const Actor& user);
 void CopyUserID(char* userID, const std::string& userID_);
@@ -15,7 +19,28 @@ class Room
 {
 public:
 	Room() = default;
-	~Room() = default;
+	~Room()
+	{
+		mIsRunning = false;
+		if (mUpdateThread.joinable())
+		{
+			mUpdateThread.join();
+		}
+
+		// 적 정리
+		for (auto& pair : mEnemies)
+		{
+			delete pair.second;
+		}
+		mEnemies.clear();
+
+		// 스포너 정리
+		for (auto spawner : mSpawners)
+		{
+			delete spawner;
+		}
+		mSpawners.clear();
+	}
 
 	INT32 GetMaxUserCount() { return mMaxUserCount; }
 
@@ -28,7 +53,17 @@ public:
 	{
 		mRoomNum = roomNum_;
 		mMaxUserCount = maxUserCount_;
-		InitNavMesh(navMeshFileName);
+		//InitNavMesh(navMeshFileName);
+
+		// 스포너 생성
+		CreateSpawners();
+
+		// 초기 적 스폰
+		SpawnInitialEnemies();
+
+		// 업데이트 스레드 시작
+		mIsRunning = true;
+		mUpdateThread = std::thread([this]() { UpdateLoop(); });
 	}
 
 	void InitNavMesh(const std::string& navMeshFileName)
@@ -56,6 +91,253 @@ public:
 	{
 		return navMeshManager.FindPath(start, end);
 	}
+
+    // 스포너 생성 (5개)
+    void CreateSpawners()
+    {
+        // 스포너 위치 정의
+        Vector3 spawnerPositions[] = {
+            { 10.0f, 0.5f, 10.0f },
+            { -10.0f, 0.5f, 10.0f },
+            { 10.0f, 0.5f, -10.0f },
+            { -10.0f, 0.5f, -10.0f },
+            { 0.0f, 0.5f, 0.0f }
+        };
+
+        ENEMY_TYPE spawnerTypes[] = {
+            ENEMY_TYPE::SLIME,
+            ENEMY_TYPE::SLIME,
+            ENEMY_TYPE::GOBLIN,
+            ENEMY_TYPE::GOBLIN,
+            ENEMY_TYPE::WOLF
+        };
+
+        for (int i = 0; i < 5; ++i)
+        {
+            INT64 spawnerID = (INT64)mRoomNum * 1000 + i;
+
+            EnemySpawner* spawner = new EnemySpawner();
+            spawner->Init(spawnerID, spawnerPositions[i], spawnerTypes[i], 30.0f); // 30초 리스폰
+
+            mSpawners.push_back(spawner);
+
+            printf("[Room %d] Spawner created: ID=%lld, Type=%d, Pos=(%.1f, %.1f, %.1f)\n",
+                mRoomNum, spawnerID, (int)spawnerTypes[i],
+                spawnerPositions[i].x, spawnerPositions[i].y, spawnerPositions[i].z);
+        }
+    }
+
+    // 초기 적 스폰
+    void SpawnInitialEnemies()
+    {
+        for (auto spawner : mSpawners)
+        {
+            INT64 enemyID = GenerateEnemyID();
+            Enemy* enemy = spawner->SpawnEnemy(enemyID);
+
+            if (enemy != nullptr)
+            {
+                mEnemies[enemyID] = enemy;
+            }
+        }
+
+        printf("[Room %d] Initial enemies spawned: %d enemies\n", mRoomNum, (int)mEnemies.size());
+    }
+
+    // 업데이트 루프
+    void UpdateLoop()
+    {
+        auto lastUpdate = std::chrono::steady_clock::now();
+
+        while (mIsRunning)
+        {
+            auto now = std::chrono::steady_clock::now();
+            float deltaTime = std::chrono::duration<float>(now - lastUpdate).count();
+            lastUpdate = now;
+
+            // 적 업데이트
+            for (auto& pair : mEnemies)
+            {
+                Enemy* enemy = pair.second;
+                if (!enemy->IsDead())
+                {
+                    enemy->Update(deltaTime);
+                }
+            }
+
+            // 스포너 업데이트 (리스폰)
+            UpdateSpawners(deltaTime);
+
+            // 0.1초마다 위치 동기화 (10 FPS)
+            static float syncTimer = 0.0f;
+            syncTimer += deltaTime;
+            if (syncTimer >= 0.1f)
+            {
+                SyncEnemyPositions();
+                syncTimer = 0.0f;
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(33)); // ~30 FPS
+        }
+    }
+
+    // 스포너 업데이트
+    void UpdateSpawners(float deltaTime)
+    {
+        for (auto spawner : mSpawners)
+        {
+            INT64 newEnemyID = 0;
+
+            // 리스폰 체크
+            if (spawner->Update(deltaTime, newEnemyID))
+            {
+                // 새 적 스폰
+                INT64 enemyID = GenerateEnemyID();
+                Enemy* newEnemy = spawner->SpawnEnemy(enemyID);
+
+                if (newEnemy != nullptr)
+                {
+                    mEnemies[enemyID] = newEnemy;
+
+                    // 모든 플레이어에게 스폰 알림
+                    ENEMY_SPAWN_NOTIFY_PACKET spawnPacket;
+                    spawnPacket.enemyID = enemyID;
+                    spawnPacket.enemyType = (INT32)newEnemy->GetEnemyType();
+                    spawnPacket.position = newEnemy->GetPosition();
+                    spawnPacket.rotation = newEnemy->GetRotation();
+                    spawnPacket.maxHealth = newEnemy->GetMaxHealth();
+                    spawnPacket.currentHealth = newEnemy->GetCurrentHealth();
+
+                    SendToAllUser(spawnPacket.PacketLength, (char*)&spawnPacket, -1, false);
+
+                    printf("[Room %d] Enemy respawned: ID=%lld, Type=%d\n",
+                        mRoomNum, enemyID, (int)newEnemy->GetEnemyType());
+                }
+            }
+        }
+    }
+
+    // 적 위치 동기화
+    void SyncEnemyPositions()
+    {
+        for (auto& pair : mEnemies)
+        {
+            Enemy* enemy = pair.second;
+            if (enemy->IsDead())
+                continue;
+
+            ENEMY_PATROL_UPDATE_PACKET packet;
+            packet.enemyID = enemy->GetEnemyID();
+            packet.position = enemy->GetPosition();
+            packet.rotation = enemy->GetRotation();
+            packet.velocity = Vector3{ 0, 0, 0 };
+
+            SendToAllUser(packet.PacketLength, (char*)&packet, -1, false);
+        }
+    }
+
+    // 플레이어 공격 처리
+    void ProcessPlayerAttack(INT64 attackerID, const Vector3& attackPos, const Vector3& attackDir)
+    {
+        const float ATTACK_RANGE = 2.0f;
+        const float ATTACK_WIDTH = 1.5f;
+        const float ATTACK_HEIGHT = 2.0f;
+
+        INT64 hitEnemyID = 0;
+        Enemy* hitEnemy = nullptr;
+
+        // BoxCollider 범위 내 적 찾기
+        for (auto& pair : mEnemies)
+        {
+            Enemy* enemy = pair.second;
+            if (enemy->IsDead())
+                continue;
+
+            Vector3 enemyPos = enemy->GetPosition();
+
+            // 공격자 앞쪽 박스 범위 체크
+            Vector3 attackCenter = attackPos;
+            attackCenter.x += attackDir.x * (ATTACK_RANGE / 2.0f);
+            attackCenter.z += attackDir.z * (ATTACK_RANGE / 2.0f);
+            attackCenter.y += ATTACK_HEIGHT / 2.0f;
+
+            // 박스 충돌 체크
+            if (IsPointInBox(enemyPos, attackCenter, attackDir, ATTACK_WIDTH, ATTACK_HEIGHT, ATTACK_RANGE))
+            {
+                hitEnemy = enemy;
+                hitEnemyID = enemy->GetEnemyID();
+                break;
+            }
+        }
+
+        // 적을 맞췄으면
+        if (hitEnemy != nullptr)
+        {
+            INT32 damage = 25;
+            bool isDead = hitEnemy->TakeDamage(damage);
+
+            // 데미지 알림
+            ENEMY_DAMAGE_NOTIFY_PACKET damagePacket;
+            damagePacket.enemyID = hitEnemyID;
+            damagePacket.attackerID = attackerID;
+            damagePacket.damageAmount = damage;
+            damagePacket.remainingHealth = hitEnemy->GetCurrentHealth();
+            SendToAllUser(damagePacket.PacketLength, (char*)&damagePacket, -1, false);
+
+            printf("[Room %d] Enemy %lld took %d damage from player %lld. HP: %d/%d\n",
+                mRoomNum, hitEnemyID, damage, attackerID,
+                hitEnemy->GetCurrentHealth(), hitEnemy->GetMaxHealth());
+
+            // 사망 처리
+            if (isDead)
+            {
+                ENEMY_DEATH_NOTIFY_PACKET deathPacket;
+                deathPacket.enemyID = hitEnemyID;
+                deathPacket.killerID = attackerID;
+                SendToAllUser(deathPacket.PacketLength, (char*)&deathPacket, -1, false);
+
+                printf("[Room %d] Enemy %lld killed by player %lld\n", mRoomNum, hitEnemyID, attackerID);
+
+                // 스포너에 사망 알림
+                NotifySpawnerEnemyDeath(hitEnemy);
+            }
+        }
+        else
+        {
+            printf("[Room %d] Player %lld attack missed!\n", mRoomNum, attackerID);
+        }
+    }
+
+    // 스포너에게 적 사망 알림
+    void NotifySpawnerEnemyDeath(Enemy* deadEnemy)
+    {
+        for (auto spawner : mSpawners)
+        {
+            if (spawner->GetEnemy() == deadEnemy)
+            {
+                spawner->OnEnemyDeath();
+                break;
+            }
+        }
+    }
+
+    // 박스 충돌 체크 (간단한 AABB)
+    bool IsPointInBox(const Vector3& point, const Vector3& boxCenter, const Vector3& forward,
+        float width, float height, float depth)
+    {
+        float halfWidth = width / 2.0f;
+        float halfHeight = height / 2.0f;
+        float halfDepth = depth / 2.0f;
+
+        Vector3 localPoint = point;
+        localPoint.x -= boxCenter.x;
+        localPoint.y -= boxCenter.y;
+        localPoint.z -= boxCenter.z;
+
+        return (fabs(localPoint.x) <= halfWidth &&
+            fabs(localPoint.y) <= halfHeight &&
+            fabs(localPoint.z) <= halfDepth);
+    }
 
 	UINT16 EnterUser(User* user_)
 	{
@@ -104,35 +386,23 @@ public:
 	}
 
 	Npc* CreateNpc()
-
 	{
-
 		INT32 uuid = 10000 + mNpcList.size();
-
 		auto npmID = std::to_string(uuid);
 
 		Npc* npc = new Npc();
-
 		npc->Init(uuid);
-
 		npc->SetLogin(npmID.c_str());
 
-
-
 		mNpcList.push_back(npc);
-
 		return npc;
-
 	}
 
 	UINT16 EnterNpc()
 	{
 		Npc* newNpc = CreateNpc();
-
 		newNpc->EnterRoom(mRoomNum);
-
 		NotifyUserEnter(newNpc->GetNetConnIdx(), newNpc->GetUserId());
-
 		return (UINT16)ERROR_CODE::NONE;
 	}
 
@@ -189,18 +459,44 @@ public:
 		}
 	}
 
+    // 헬퍼 함수
+    int GetAliveEnemyCount() const
+    {
+        int count = 0;
+        for (auto& pair : mEnemies)
+        {
+            if (!pair.second->IsDead())
+                count++;
+        }
+        return count;
+    }
+
 private:
-	NavMeshManager navMeshManager;
+    INT64 GenerateEnemyID()
+    {
+        static INT64 nextID = 1;
+        return (INT64)mRoomNum * 10000 + (nextID++);
+    }
 
-	INT32 mRoomNum = -1;
+    NavMeshManager navMeshManager;
 
-	std::list<User*> mUserList;
-	std::list<Npc*> mNpcList;
+    INT32 mRoomNum = -1;
 
-		
-	INT32 mMaxUserCount = 0;
+    std::list<User*> mUserList;
+    std::list<Npc*> mNpcList;
 
-	UINT16 mCurrentUserCount = 0;
+    // 적 관리 (map으로 변경)
+    std::unordered_map<INT64, Enemy*> mEnemies;
+
+    // 스포너 리스트
+    std::vector<EnemySpawner*> mSpawners;
+
+    INT32 mMaxUserCount = 0;
+    UINT16 mCurrentUserCount = 0;
+
+    // 업데이트 스레드
+    bool mIsRunning = false;
+    std::thread mUpdateThread;
 };
 
 
