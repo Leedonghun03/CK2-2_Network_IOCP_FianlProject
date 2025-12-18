@@ -37,7 +37,12 @@ public:
 
 	virtual void OnReceive(const UINT32 clientIndex_, const UINT32 size_, char* pData_) override  
 	{
-		printf("[OnReceive] 클라이언트: Index(%d), dataSize(%d)\n", clientIndex_, size_);
+		printf("[OnReceive] Index(%d), size(%d)\n", clientIndex_, size_);
+
+		if (size_ >= 5) {
+			auto* h = reinterpret_cast<PACKET_HEADER*>(pData_);
+			printf("[HDR] len=%u id=%u type=%u\n", h->PacketLength, h->PacketId, h->Type);
+		}
 
 		m_pPacketManager->ReceivePacketData(clientIndex_, size_, pData_);
 	}
@@ -51,9 +56,13 @@ public:
 
 		m_pPacketManager = std::make_unique<PacketManager>();
 		m_pPacketManager->SendPacketFunc = sendPacketFunc;
-		m_pPacketManager->Init(maxClient);		
-		m_pPacketManager->Run();
-		
+		m_pPacketManager->Init(maxClient);
+
+		if (m_pPacketManager->Run() == false)
+		{
+			printf("[GameServer] PacketManager start failed. Server not started.\n");
+		}
+
 		StartServer(maxClient);
 	}
 

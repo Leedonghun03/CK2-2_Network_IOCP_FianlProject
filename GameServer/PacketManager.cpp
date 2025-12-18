@@ -61,13 +61,12 @@ void PacketManager::CreateCompent(const UINT32 maxClient_)
 
 bool PacketManager::Run()
 {	
-	//if (mRedisMgr->Run("127.0.0.1", 6379, 1) == false)
-	if (mRedisMgr->Run("127.0.0.1", 5004, 1) == false)
+	bool redisOK = mRedisMgr->Run("127.0.0.1", 6379, 1);
+	if (!redisOK)
 	{
-		return false;
+		printf("[WARN] Redis connect failed. Continue without redis.\n");
 	}
 
-	//이 부분을 패킷 처리 부분으로 이동 시킨다.
 	mIsRunProcessThread = true;
 	mProcessThread = std::thread([this]() { ProcessPacket(); });
 
@@ -234,50 +233,66 @@ void PacketManager::ProcessUserDisConnect(UINT32 clientIndex_, UINT16 packetSize
 
 void PacketManager::ProcessLogin(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 { 
-	if (LOGIN_REQUEST_PACKET_SIZE != packetSize_)
+	if (packetSize_ < PACKET_HEADER_LENGTH)
 	{
 		return;
 	}
 
-	auto pLoginReqPacket = reinterpret_cast<LOGIN_REQUEST_PACKET*>(pPacket_);
+	char userId[MAX_USER_ID_LEN + 1] = { 0 };
+	char userPw[MAX_USER_PW_LEN + 1] = { 0 };
 
-	auto pUserID = pLoginReqPacket->userID;
-	printf("requested user id = %s\n", pUserID);
+	// 1) 정상 로그인 패킷(201: LOGIN_REQUEST_PACKET) 크기면 기존 구조로 파싱
+	if (packetSize_ == (UINT16)LOGIN_REQUEST_PACKET_SIZE)
+	{
+		auto pLoginReqPacket = reinterpret_cast<LOGIN_REQUEST_PACKET*>(pPacket_);
+		StringCbCopyA(userId, sizeof(userId), pLoginReqPacket->userID);
+		StringCbCopyA(userPw, sizeof(userPw), pLoginReqPacket->userPW);
+	}
+	// 2) Unity 임시 로그인: 201이지만 body에 "이름/ID만" 담아 보낸 경우(가변 길이 허용)
+	else
+	{
+		const UINT16 bodySize = packetSize_ - (UINT16)PACKET_HEADER_LENGTH;
+		const UINT16 copyLen = (bodySize > MAX_USER_ID_LEN) ? MAX_USER_ID_LEN : bodySize;
+
+		if (copyLen == 0)
+		{
+			// 바디가 없으면 응답도 의미 없음
+			return;
+		}
+
+		CopyMemory(userId, pPacket_ + PACKET_HEADER_LENGTH, copyLen);
+		userId[copyLen] = '\0';
+		// userPw는 빈 문자열로 둠
+	}
+
+	printf("[ProcessLogin] client=%u, userId=%s, packetSize=%u\n", clientIndex_, userId, packetSize_);
 
 	LOGIN_RESPONSE_PACKET loginResPacket;
 
-	if (mUserManager->GetCurrentUserCnt() >= mUserManager->GetMaxUserCnt()) 
-	{ 
-		//접속자수가 최대수를 차지해서 접속불가
+	// 서버 최대 접속자 체크 (기존 로직 유지)
+	if (mUserManager->GetCurrentUserCnt() >= mUserManager->GetMaxUserCnt())
+	{
 		loginResPacket.Result = (UINT16)ERROR_CODE::LOGIN_USER_USED_ALL_OBJ;
-		SendPacketFunc(clientIndex_, sizeof(LOGIN_RESPONSE_PACKET) , (char*)&loginResPacket);
+		SendPacketFunc(clientIndex_, sizeof(LOGIN_RESPONSE_PACKET), (char*)&loginResPacket);
 		return;
 	}
 
-	//여기에서 이미 접속된 유저인지 확인하고, 접속된 유저라면 실패한다.
-	if (mUserManager->FindUserIndexByID(pUserID) == -1) 
-	{ 
-		RedisLoginReq dbReq;
-		CopyUserID(dbReq.UserID, pLoginReqPacket->userID);
-		CopyMemory(dbReq.UserPW, pLoginReqPacket->userPW, (MAX_USER_PW_LEN + 1));
-
-		RedisTask task;
-		task.UserIndex = clientIndex_;
-		task.TaskID = RedisTaskID::REQUEST_LOGIN;
-		task.DataSize = sizeof(RedisLoginReq);
-		task.pData = new char[task.DataSize];
-		CopyMemory(task.pData, (char*)&dbReq, task.DataSize);
-		mRedisMgr->PushTask(task);
-
-		printf("Login To Redis user id = %s\n", pUserID);
-	}
-	else 
+	// 이미 접속중인 ID인지 체크 (동작이 완벽하진 않지만 기존 의도 유지)
+	if (mUserManager->FindUserIndexByID(userId) != -1)
 	{
-		//접속중인 유저여서 실패를 반환한다.
 		loginResPacket.Result = (UINT16)ERROR_CODE::LOGIN_USER_ALREADY;
 		SendPacketFunc(clientIndex_, sizeof(LOGIN_RESPONSE_PACKET), (char*)&loginResPacket);
 		return;
 	}
+
+	mUserManager->AddUser(userId, clientIndex_);
+	mUserManager->IncreaseUserCnt();
+
+	// Unity 대응용: 서버 코드가 원래 Result에 clientIndex_를 넣고 있었음
+	loginResPacket.Result = (UINT16)clientIndex_;
+	SendPacketFunc(clientIndex_, sizeof(LOGIN_RESPONSE_PACKET), (char*)&loginResPacket);
+
+	printf("[ProcessLogin] Sent 202(LoginResponse). client=%u result=%u\n", clientIndex_, loginResPacket.Result);
 }
 
 void PacketManager::ProcessLoginDBResult(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)

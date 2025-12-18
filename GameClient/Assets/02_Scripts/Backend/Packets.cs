@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 
-public enum E_PACKET
+public enum E_PACKET : ushort
 {
     PLAYER_NAME = 201,                  // 서버: LOGIN_REQUEST
     PLAYER_NAME_SUCCESS = 202,          // 서버: LOGIN_RESPONSE
@@ -75,6 +75,12 @@ struct P_PlayerNameSuccess
 
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
     public string name;
+}
+
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+struct P_LoginResponse
+{
+    public ushort Result;
 }
 
 [StructLayout(LayoutKind.Sequential, Size = 24)]
