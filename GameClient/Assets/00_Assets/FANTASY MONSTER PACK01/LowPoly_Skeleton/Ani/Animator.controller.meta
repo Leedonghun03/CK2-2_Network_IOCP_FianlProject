@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 629bde1dbcee32e4f83e92185554f403
+timeCreated: 1472452720
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: charactor/res/skeleton/animation_h_
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142668
+  packageName: Monster&&LowPloygon Mobile_Skeleton
+  packageVersion: 1.15
+  assetPath: Assets/FANTASY MONSTER PACK01/LowPoly_Skeleton/Ani/Animator.controller
+  uploadId: 318806
