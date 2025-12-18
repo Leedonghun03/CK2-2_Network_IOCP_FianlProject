@@ -53,7 +53,7 @@ void PacketManager::CreateCompent(const UINT32 maxClient_)
 bool PacketManager::Run()
 {	
 	//if (mRedisMgr->Run("127.0.0.1", 6379, 1) == false)
-	if (mRedisMgr->Run("127.0.0.1", 1234, 1) == false)
+	if (mRedisMgr->Run("127.0.0.1", 5004, 1) == false)
 	{
 		return false;
 	}
