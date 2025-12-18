@@ -88,7 +88,7 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
 
     public unsafe void OnPacketReceived(Packet packet)
     {
-        byte packetId = packet.pbase.packet_id;
+        ushort packetId = packet.pbase.packet_id;
         switch ((E_PACKET)packetId)
         {
             case E_PACKET.PLAYER_JOINED:

@@ -95,7 +95,7 @@ public class Chat : MonoBehaviour, IPacketReceiver
 
     public void OnPacketReceived(Packet packet)
     {
-        byte packetId = packet.pbase.packet_id;
+        ushort packetId = packet.pbase.packet_id;
         switch ((E_PACKET)packetId)
         {
             case E_PACKET.RECEIVE_CHAT_MESSAGE:

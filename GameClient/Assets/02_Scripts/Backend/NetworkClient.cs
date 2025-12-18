@@ -6,14 +6,12 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using UnityEngine;
 
-[StructLayout(LayoutKind.Sequential, Pack = 1, Size = 3)]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct PacketBase
 {
-    [MarshalAs(UnmanagedType.U1)]
-    public byte packet_id;
-
-    [MarshalAs(UnmanagedType.I2)]
-    public short length;
+    public ushort length;     // 2
+    public ushort packet_id;  // 2
+    public byte type;         // 1
 }
 
 public unsafe struct Packet
@@ -43,115 +41,120 @@ public unsafe class NetworkClient
 
     public void Start()
     {
-        socket.Connect(endPoint);
-        if (socketProtocol == ProtocolType.Tcp)
+        Debug.Log($"[NetworkClient] Start - Protocol: {socketProtocol}, EndPoint: {endPoint}");  // ★ 추가
+
+        try
         {
-            new Thread(ReadTcpDataThread).Start();
+            socket.Connect(endPoint);
+            Debug.Log($"[NetworkClient] Connect 성공! {endPoint}");  // ★ 추가
+
+            if (socketProtocol == ProtocolType.Tcp)
+            {
+                Debug.Log("[NetworkClient] TCP ReadThread 시작");  // ★ 추가
+                new Thread(ReadTcpDataThread).Start();
+            }
+            else if (socketProtocol == ProtocolType.Udp)
+            {
+                Debug.Log("[NetworkClient] UDP ReadThread 시작");  // ★ 추가
+                new Thread(ReadUdpDataThread).Start();
+            }
         }
-        else if (socketProtocol == ProtocolType.Udp)
+        catch (Exception e)
         {
-            new Thread(ReadUdpDataThread).Start();
+            Debug.LogError($"[NET] Send failed: {e}");
+            Close();
         }
     }
 
     private void ReadUdpDataThread()
     {
+        int headerSize = Marshal.SizeOf<PacketBase>();
         byte[] clientBuffer = new byte[UDP_MAX_DATA_LENGTH];
         EndPoint ep = socket.RemoteEndPoint;
+
         while (socket != null)
         {
             int bytesReceived = 0;
-            try
+            try { bytesReceived = socket.ReceiveFrom(clientBuffer, 0, UDP_MAX_DATA_LENGTH, SocketFlags.None, ref ep); }
+            catch { break; }
+
+            if (bytesReceived >= headerSize)
             {
-                bytesReceived = socket.ReceiveFrom(clientBuffer, 0, UDP_MAX_DATA_LENGTH, SocketFlags.None, ref ep);
-            }
-            catch
-            {
-                break;
-            }
-            if (bytesReceived > 0)
-            {
-                PacketBase packetBase = default;
+                PacketBase pb = default;
+                pb.length = BitConverter.ToUInt16(clientBuffer, 0);
+                pb.packet_id = BitConverter.ToUInt16(clientBuffer, 2);
+                pb.type = clientBuffer[4];
+
+                if (pb.length < headerSize || pb.length > bytesReceived) continue;
+
                 Packet packet = default;
-                packetBase.packet_id = clientBuffer[0];
-                packetBase.length = BitConverter.ToInt16(clientBuffer, sizeof(byte));
-                packet.pbase = packetBase;
-                packet.data = UnsafeCode.SubArray(clientBuffer, sizeof(PacketBase), packetBase.length - sizeof(PacketBase));
-                synchronizationContext.Post((object state) => { HandlePacket(packet); }, null);
+                packet.pbase = pb;
+                packet.data = UnsafeCode.SubArray(clientBuffer, headerSize, pb.length - headerSize);
+
+                synchronizationContext.Post(_ => HandlePacket(packet), null);
             }
-            else if (bytesReceived < 0)
-            {
-                break;
-            }
+
             Thread.Sleep(50);
         }
+
         Close();
     }
 
     private void ReadTcpDataThread()
     {
+        int headerSize = Marshal.SizeOf<PacketBase>(); // 5
         int offset = 0;
-        byte[] packetBaseBuffer = new byte[sizeof(PacketBase)];
+
+        byte[] packetBaseBuffer = new byte[headerSize];
         byte[] clientBuffer = null;
         bool bBase = false;
+
         while (socket != null)
         {
             if (!bBase)
             {
-                int packetBaseBytesReceived = 0;
-                try
-                {
-                    packetBaseBytesReceived = socket.Receive(packetBaseBuffer, offset, sizeof(PacketBase) - offset, SocketFlags.None);
-                }
-                catch
-                {
-                    break;
-                }
-                offset += packetBaseBytesReceived;
-                bBase = (offset == sizeof(PacketBase));
+                int received = 0;
+                try { received = socket.Receive(packetBaseBuffer, offset, headerSize - offset, SocketFlags.None); }
+                catch { break; }
+
+                offset += received;
+                bBase = (offset == headerSize);
             }
             else
             {
                 Packet packet = default;
                 packet.pbase = UnsafeCode.ByteArrayToStructure<PacketBase>(packetBaseBuffer);
+
+                if (packet.pbase.length < headerSize) { break; } // 방어
+
                 if (clientBuffer == null)
                 {
                     clientBuffer = new byte[packet.pbase.length];
-                    Buffer.BlockCopy(packetBaseBuffer, 0, clientBuffer, 0, sizeof(PacketBase));
+                    Buffer.BlockCopy(packetBaseBuffer, 0, clientBuffer, 0, headerSize);
                 }
-                int bytesReceived = 0;
-                try
+
+                int received = 0;
+                try { received = socket.Receive(clientBuffer, offset, packet.pbase.length - offset, SocketFlags.None); }
+                catch { break; }
+
+                if (received > 0)
                 {
-                    bytesReceived = socket.Receive(clientBuffer, offset, packet.pbase.length - offset, SocketFlags.None);
-                }
-                catch
-                {
-                    break;
-                }
-                if (bytesReceived > 0)
-                {
-                    offset += bytesReceived;
-                    if (offset < packet.pbase.length)
-                    {
-                        continue;
-                    }
-                    packet.data = UnsafeCode.SubArray(clientBuffer, sizeof(PacketBase), packet.pbase.length - sizeof(PacketBase));
-                    synchronizationContext.Post((object state) => { HandlePacket(packet); }, null);
+                    offset += received;
+                    if (offset < packet.pbase.length) continue;
+
+                    packet.data = UnsafeCode.SubArray(clientBuffer, headerSize, packet.pbase.length - headerSize);
+                    synchronizationContext.Post(_ => HandlePacket(packet), null);
+
                     clientBuffer = null;
                     offset = 0;
                     bBase = false;
                 }
-                else if (bytesReceived < 0)
-                {
-                    break;
-                }
+                else break;
             }
         }
+
         Close();
-        if (OnDisconnect != null)
-        {
-            synchronizationContext.Post((object state) => { OnDisconnect(); }, null);
-        }
+        OnDisconnect?.Invoke();
     }
 
 
@@ -165,27 +168,29 @@ public unsafe class NetworkClient
 
     private void SendData(E_PACKET packetId, byte[] data)
     {
-        if (socket != null)
+        if (socket == null) return;
+
+        int headerSize = Marshal.SizeOf<PacketBase>(); // 5
+        int sz = data.Length + headerSize;
+
+        byte[] buff = new byte[sz];
+
+        // length (ushort)
+        Buffer.BlockCopy(BitConverter.GetBytes((ushort)sz), 0, buff, 0, 2);
+        // packet_id (ushort)
+        Buffer.BlockCopy(BitConverter.GetBytes((ushort)packetId), 0, buff, 2, 2);
+        // type (byte) - 서버에서 거의 안 쓰면 0으로
+        buff[4] = 0;
+
+        // payload
+        Buffer.BlockCopy(data, 0, buff, headerSize, data.Length);
+
+        try
         {
-            int sz = data.Length + sizeof(PacketBase);
-            byte[] sizeInBytes = BitConverter.GetBytes((short)sz);
-            byte[] buff = new byte[sz];
-            buff[0] = (byte)packetId;
-            Buffer.BlockCopy(sizeInBytes, 0, buff, 1, sizeInBytes.Length);
-            Buffer.BlockCopy(data, 0, buff, sizeof(PacketBase), data.Length);
-            try
-            {
-                if (socketProtocol == ProtocolType.Tcp)
-                {
-                    socket.Send(buff);
-                }
-                else
-                {
-                    socket.SendTo(buff, endPoint);
-                }
-            }
-            catch { Close(); }
+            if (socketProtocol == ProtocolType.Tcp) socket.Send(buff);
+            else socket.SendTo(buff, endPoint);
         }
+        catch { Close(); }
     }
 
     public void SendPacket(E_PACKET packetId)
