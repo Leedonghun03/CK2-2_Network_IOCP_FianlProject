@@ -11,7 +11,24 @@ public enum E_PACKET
     UPDATE_PLAYER_MOVEMENT,
     SEND_CHAT_MESSAGE,
     RECEIVE_CHAT_MESSAGE,
-    PLAYER_LEFT
+    PLAYER_LEFT,
+
+    INVENTORY_INFO_REQUEST = 401,
+    INVENTORY_INFO_RESPONSE = 402,
+    ITEM_ADD_REQUEST = 403,
+    ITEM_ADD_RESPONSE = 404,
+    ITEM_USE_REQUEST = 406,
+    ITEM_USE_RESPONSE = 407,
+}
+
+public enum ITEM_TYPE : ushort
+{
+    NONE = 0,
+    WEAPON = 1,
+    ARMOR = 2,
+    POTION = 3,
+    MATERIAL = 4,
+    QUEST = 5
 }
 
 [StructLayout(LayoutKind.Sequential, Size = 16)]
@@ -113,3 +130,46 @@ struct P_PlayerLeft
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
     public string name;
 }
+
+// ================= 이벤토리 =========================
+
+[StructLayout(LayoutKind.Sequential, Size = 40)]
+public struct Item
+{
+    [MarshalAs(UnmanagedType.U4)]
+    public uint itemID;
+
+    [MarshalAs(UnmanagedType.U2)]
+    public ITEM_TYPE itemType;
+
+    [MarshalAs(UnmanagedType.U2)]
+    public ushort quantity;
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+    public string itemName;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+struct P_InventoryInfoRequest
+{
+    // 빈 구조체
+}
+
+[StructLayout(LayoutKind.Sequential)]
+struct P_ItemAddRequest
+{
+    [MarshalAs(UnmanagedType.U4)]
+    public uint itemID;
+
+    [MarshalAs(UnmanagedType.U2)]
+    public ushort quantity;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+struct P_ItemUseRequest
+{
+    [MarshalAs(UnmanagedType.U2)]
+    public ushort slotIndex;
+}
+
+// ====================================================

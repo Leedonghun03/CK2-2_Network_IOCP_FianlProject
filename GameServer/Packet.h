@@ -43,6 +43,29 @@ struct PacketInfo
 	char* pDataPtr = nullptr;
 };
 
+// ================= 이벤토리 =========================
+
+enum class ITEM_TYPE : UINT16
+{
+	NONE = 0,
+	WEAPON = 1,      // 무기
+	ARMOR = 2,       // 방어구
+	POTION = 3,      // 포션
+	MATERIAL = 4,    // 재료
+	QUEST = 5        // 퀘스트 아이템
+};
+
+struct Item
+{
+	UINT32 itemID;           // 아이템 고유 ID
+	ITEM_TYPE itemType;      // 아이템 타입
+	UINT16 quantity;         // 수량
+	char itemName[32];       // 아이템 이름
+};
+
+const UINT32 MAX_INVENTORY_SIZE = 40; // 인벤토리 최대 슬롯
+
+// ====================================================
 
 enum class  PACKET_ID : UINT16
 {
@@ -81,8 +104,24 @@ enum class  PACKET_ID : UINT16
 	MOVE_PATH_REQUEST = 225,
 	MOVE_PATH_RESPONSE = 226,
 	MOVE_PATH_NOTIFY = 227,
-};
 
+	// Inventory
+	INVENTORY_INFO_REQUEST = 301,      // 인벤토리 정보 요청
+	INVENTORY_INFO_RESPONSE = 302,     // 인벤토리 정보 응답
+
+	ITEM_ADD_REQUEST = 303,            // 아이템 추가 요청
+	ITEM_ADD_RESPONSE = 304,           // 아이템 추가 응답
+	ITEM_ADD_NOTIFY = 305,             // 아이템 추가 알림 (다른 유저에게)
+
+	ITEM_USE_REQUEST = 306,            // 아이템 사용 요청
+	ITEM_USE_RESPONSE = 307,           // 아이템 사용 응답
+
+	ITEM_DROP_REQUEST = 308,           // 아이템 버리기 요청
+	ITEM_DROP_RESPONSE = 309,          // 아이템 버리기 응답
+
+	ITEM_MOVE_REQUEST = 310,           // 아이템 이동 (슬롯 변경)
+	ITEM_MOVE_RESPONSE = 311,          // 아이템 이동 응답
+};
 
 #pragma pack(push,1)
 struct PACKET_HEADER
@@ -241,6 +280,79 @@ struct MOVE_PATH_RESPONSE_PACKET : public PACKET_HEADER
 
 	MOVE_PATH_RESPONSE_PACKET() : PACKET_HEADER(sizeof(*this), PACKET_ID::MOVE_PATH_RESPONSE) {}
 };
+
+// ================= 이벤토리 =========================
+// 인벤토리 정보 요청
+struct INVENTORY_INFO_REQUEST_PACKET : public PACKET_HEADER
+{
+	INVENTORY_INFO_REQUEST_PACKET()
+		: PACKET_HEADER(sizeof(*this), PACKET_ID::INVENTORY_INFO_REQUEST) {
+	}
+};
+
+// 인벤토리 정보 응답
+struct INVENTORY_INFO_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result;
+	UINT16 itemCount;
+	Item items[MAX_INVENTORY_SIZE];
+
+	INVENTORY_INFO_RESPONSE_PACKET()
+		: Result(0), itemCount(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::INVENTORY_INFO_RESPONSE) {
+	}
+};
+
+// 아이템 추가 요청
+struct ITEM_ADD_REQUEST_PACKET : public PACKET_HEADER
+{
+	UINT32 itemID;
+	UINT16 quantity;
+
+	ITEM_ADD_REQUEST_PACKET()
+		: itemID(0), quantity(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::ITEM_ADD_REQUEST) {
+	}
+};
+
+// 아이템 추가 응답
+struct ITEM_ADD_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result;
+	Item addedItem;
+	UINT16 slotIndex;  // 추가된 슬롯 인덱스
+
+	ITEM_ADD_RESPONSE_PACKET()
+		: Result(0), slotIndex(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::ITEM_ADD_RESPONSE) {
+	}
+};
+
+// 아이템 사용 요청
+struct ITEM_USE_REQUEST_PACKET : public PACKET_HEADER
+{
+	UINT16 slotIndex;
+
+	ITEM_USE_REQUEST_PACKET()
+		: slotIndex(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::ITEM_USE_REQUEST) {
+	}
+};
+
+// 아이템 사용 응답
+struct ITEM_USE_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result;
+	UINT16 slotIndex;
+	UINT16 remainingQuantity;
+
+	ITEM_USE_RESPONSE_PACKET()
+		: Result(0), slotIndex(0), remainingQuantity(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::ITEM_USE_RESPONSE) {
+	}
+};
+
+// ====================================================
 
 #pragma pack(pop) //위에 설정된 패킹설정이 사라짐
 

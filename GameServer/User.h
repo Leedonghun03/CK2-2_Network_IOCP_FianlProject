@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Actor.h"
+#include "Inventory.h"
 
 class User: public Actor
 {
@@ -15,6 +16,7 @@ public:
 	{
 		Actor::Init(index);
 		mPakcetDataBuffer = new char[PACKET_DATA_BUFFER_SIZE];
+		mInventory.Init(); // 인벤토리 초기화
 	}
 
 	void Clear()
@@ -81,6 +83,7 @@ public:
 		return packetInfo;
 	}
 
+	Inventory& GetInventory() { return mInventory; }
 
 private:
 	bool mIsConfirm = false;
@@ -90,5 +93,7 @@ private:
 	UINT32 mPakcetDataBufferWPos = 0;
 	UINT32 mPakcetDataBufferRPos = 0;
 	char* mPakcetDataBuffer = nullptr;
+
+	Inventory mInventory;
 };
 

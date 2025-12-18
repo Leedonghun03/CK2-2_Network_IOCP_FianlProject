@@ -25,6 +25,11 @@ void PacketManager::Init(const UINT32 maxClient_)
 	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_LEAVE_REQUEST] = &PacketManager::ProcessLeaveRoom;
 	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_CHAT_REQUEST] = &PacketManager::ProcessRoomChatMessage;
 	mRecvFuntionDictionary[(int)PACKET_ID::PLAYER_MOVEMENT] = &PacketManager::ProcessPlayerMovement;
+
+	// 인벤토리 패킷 핸들러 등록
+	mRecvFuntionDictionary[(int)PACKET_ID::INVENTORY_INFO_REQUEST] = &PacketManager::ProcessInventoryInfoRequest;
+	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_ADD_REQUEST] = &PacketManager::ProcessItemAddRequest;
+	mRecvFuntionDictionary[(int)PACKET_ID::ITEM_USE_REQUEST] = &PacketManager::ProcessItemUseRequest;
 				
 	CreateCompent(maxClient_);
 
@@ -443,7 +448,93 @@ void PacketManager::ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSiz
 	SendPacketFunc(clientIndex_, sizeof(ROOM_CHAT_RESPONSE_PACKET), (char*)&roomChatResPacket);
 
 	pRoom->NotifyChat(clientIndex_, reqUser->GetUserId().c_str(), pRoomChatReqPacketet->Message);		
-}		   
+}
+
+// ================= 이벤토리 =========================
+
+void PacketManager::ProcessInventoryInfoRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	auto pUser = mUserManager->GetUserByConnIdx(clientIndex_);
+	if (!pUser) return;
+
+	INVENTORY_INFO_RESPONSE_PACKET response;
+	response.Result = (UINT16)ERROR_CODE::NONE;
+
+	const auto& items = pUser->GetInventory().GetAllItems();
+	response.itemCount = 0;
+
+	for (UINT16 i = 0; i < items.size() && i < MAX_INVENTORY_SIZE; ++i)
+	{
+		if (items[i].itemID != 0)
+		{
+			response.items[response.itemCount++] = items[i];
+		}
+	}
+
+	SendPacketFunc(clientIndex_, sizeof(INVENTORY_INFO_RESPONSE_PACKET), (char*)&response);
+}
+
+void PacketManager::ProcessItemAddRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	auto pRequest = reinterpret_cast<ITEM_ADD_REQUEST_PACKET*>(pPacket_);
+	auto pUser = mUserManager->GetUserByConnIdx(clientIndex_);
+	if (!pUser) return;
+
+	ITEM_ADD_RESPONSE_PACKET response;
+
+	// TODO: 아이템 ID로 아이템 정보를 가져오는 로직 (아이템 테이블 필요)
+	// 여기서는 예시로 하드코딩
+	UINT16 slotIndex = 0;
+	bool success = pUser->GetInventory().AddItem(
+		pRequest->itemID,
+		ITEM_TYPE::POTION,
+		pRequest->quantity,
+		"Health Potion",
+		slotIndex
+	);
+
+	if (success)
+	{
+		response.Result = (UINT16)ERROR_CODE::NONE;
+		response.slotIndex = slotIndex;
+		response.addedItem = pUser->GetInventory().GetItem(slotIndex);
+	}
+	else
+	{
+		response.Result = (UINT16)ERROR_CODE::INVENTORY_FULL;
+	}
+
+	SendPacketFunc(clientIndex_, sizeof(ITEM_ADD_RESPONSE_PACKET), (char*)&response);
+}
+
+void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	auto pRequest = reinterpret_cast<ITEM_USE_REQUEST_PACKET*>(pPacket_);
+	auto pUser = mUserManager->GetUserByConnIdx(clientIndex_);
+	if (!pUser) return;
+
+	ITEM_USE_RESPONSE_PACKET response;
+	UINT16 remainingQuantity = 0;
+
+	bool success = pUser->GetInventory().UseItem(pRequest->slotIndex, remainingQuantity);
+
+	if (success)
+	{
+		response.Result = (UINT16)ERROR_CODE::NONE;
+		response.slotIndex = pRequest->slotIndex;
+		response.remainingQuantity = remainingQuantity;
+
+		// TODO: 아이템 효과 적용 (체력 회복 등)
+	}
+	else
+	{
+		response.Result = (UINT16)ERROR_CODE::ITEM_USE_FAILED;
+	}
+
+	SendPacketFunc(clientIndex_, sizeof(ITEM_USE_RESPONSE_PACKET), (char*)&response);
+}
+
+// ====================================================
 
 void PacketManager::TempFindPath(const std::string& endPosStr, User& user, Room& room)
 {

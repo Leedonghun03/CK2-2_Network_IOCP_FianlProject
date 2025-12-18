@@ -146,6 +146,7 @@
     <ClInclude Include="CRedisConnEx.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="GameServer.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="NavMeshManager.h" />
     <ClInclude Include="Npc.h" />
     <ClInclude Include="Packet.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="UserManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NavMeshManager.cpp" />
     <ClCompile Include="Packet.cpp" />
