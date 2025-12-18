@@ -43,6 +43,10 @@ void PacketManager::Init(const UINT32 maxClient_)
 	CreateCompent(maxClient_);
 
 	mRedisMgr = new RedisManager;// std::make_unique<RedisManager>();
+
+	printf("[InitCheck] QUEST_TALK_REQUEST=%d, QUEST_TALK_RESPONSE=%d\n",
+		(int)PACKET_ID::QUEST_TALK_REQUEST,
+		(int)PACKET_ID::QUEST_TALK_RESPONSE);
 }
 
 void PacketManager::CreateCompent(const UINT32 maxClient_)
@@ -561,53 +565,54 @@ void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize
 // ====================== Quest =====================
 void PacketManager::ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
-	UNREFERENCED_PARAMETER(packetSize_);
-
 	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
 	if (!pUser) return;
 
-	auto pReq = reinterpret_cast<QUEST_TALK_REQUEST_PACKET*>(pPacket_);
+	auto* pReq = reinterpret_cast<QUEST_TALK_REQUEST_PACKET*>(pPacket_);
 
 	QUEST_TALK_RESPONSE_PACKET res;
-	res.Result = (UINT16)ERROR_CODE::NONE;
+	res.npc_id = pReq->npc_id;
+	res.quest_id = 1;
+	res.state = (UINT8)pUser->GetQuestState();   // 0/1/2가 Unity와 동일해야 함
+	res.current = 0;
+	res.required = 1;
 
-	res.NpcId = pReq->NpcId;
-	res.QuestId = 1;
+	strncpy_s(res.title, "1. Monster", MAX_QUEST_TITLE_LEN - 1);
+	strncpy_s(res.desc, "Eliminate One Monster", MAX_QUEST_DESC_LEN - 1);
 
-	res.State = (UINT8)pUser->GetQuestState();
-	res.Current = 0;
-	res.Required = 1;
-
-	strcpy_s(res.Title, "1. Monster");
-	strcpy_s(res.Desc, "Eliminate One Monster");
+	res.rewardItemID = 1001; // 예시: 포션 아이템 ID
+	res.rewardQty = 1;
 
 	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
 }
 
 void PacketManager::ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
-	UNREFERENCED_PARAMETER(packetSize_);
-
 	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
 	if (!pUser) return;
 
-	auto pReq = reinterpret_cast<QUEST_ACCEPT_REQUEST_PACKET*>(pPacket_);
+	auto* pReq = reinterpret_cast<QUEST_ACCEPT_REQUEST_PACKET*>(pPacket_);
 
 	QUEST_ACCEPT_RESPONSE_PACKET res;
-	res.QuestId = pReq->QuestId;
+	res.quest_id = pReq->quest_id;
 
 	if (pUser->GetQuestState() != QUEST_STATE::NOT_ACCEPTED)
 	{
-		res.Result = (UINT16)ERROR_CODE::QUEST_ALREADY_ACCEPTED;
-		res.State = (UINT8)pUser->GetQuestState();
+		res.result = 0;
+		res.state = (UINT8)pUser->GetQuestState();
+		res.current = 0;
+		res.required = 1;
 		SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
 		return;
 	}
 
 	pUser->SetQuestState(QUEST_STATE::IN_PROGRESS);
 
-	res.Result = (UINT16)ERROR_CODE::NONE;
-	res.State = (UINT8)pUser->GetQuestState();
+	res.result = 1; // Unity는 1이면 성공 처리
+	res.state = (UINT8)pUser->GetQuestState();
+	res.current = 0;
+	res.required = 1;
+
 	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
 }
 

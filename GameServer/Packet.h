@@ -141,12 +141,12 @@ enum class  PACKET_ID : UINT16
 	ENEMY_DEATH_NOTIFY = 425,
 
 	// Quest
-	QUEST_TALK_REQUEST = 601,
-	QUEST_TALK_RESPONSE = 602,
-	QUEST_ACCEPT_REQUEST = 603,
-	QUEST_ACCEPT_RESPONSE = 604,
-	QUEST_COMPLETE_REQUEST = 605,
-	QUEST_COMPLETE_RESPONSE = 606,
+	QUEST_TALK_REQUEST = 501,
+	QUEST_TALK_RESPONSE = 502,
+	QUEST_ACCEPT_REQUEST = 503,
+	QUEST_ACCEPT_RESPONSE = 504,
+	QUEST_COMPLETE_REQUEST = 505,
+	QUEST_COMPLETE_RESPONSE = 506,
 };
 
 #pragma pack(push,1)
@@ -474,50 +474,56 @@ const int MAX_QUEST_DESC_LEN = 64;
 
 struct QUEST_TALK_REQUEST_PACKET : public PACKET_HEADER
 {
-	INT32 NpcId;
-	QUEST_TALK_REQUEST_PACKET()
-		: NpcId{ 0 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_TALK_REQUEST) {
-	}
+	INT32 npc_id;
+	QUEST_TALK_REQUEST_PACKET() : npc_id{ 0 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_TALK_REQUEST) {}
 };
 
 struct QUEST_TALK_RESPONSE_PACKET : public PACKET_HEADER
 {
-	UINT16 Result;
+	INT32 npc_id;
+	INT32 quest_id;
+	UINT8 state;
+	UINT8 _pad0;        // (클라 마샬링 padding 안전용)
 
-	INT32 NpcId;
-	INT32 QuestId;
+	UINT16 current;
+	UINT16 required;
 
-	UINT8 State;      // QUEST_STATE
-	UINT16 Current;   // 0/1
-	UINT16 Required;  // 1
+	char title[MAX_QUEST_TITLE_LEN]; // 32
+	char desc[MAX_QUEST_DESC_LEN];   // 64
 
-	char Title[MAX_QUEST_TITLE_LEN + 1];
-	char Desc[MAX_QUEST_DESC_LEN + 1];
+	UINT32 rewardItemID;
+	UINT16 rewardQty;
+
+	// Unity 쪽이 Size=128로 잡혀있어서 payload가 128이 되게 padding (선택이지만 안전)
+	char _padTail[12];
 
 	QUEST_TALK_RESPONSE_PACKET()
-		: Result{ 0 }, NpcId{ 0 }, QuestId{ 1 }, State{ (UINT8)QUEST_STATE::NOT_ACCEPTED },
-		Current{ 0 }, Required{ 1 },
-		Title{ 0, }, Desc{ 0, },
+		: npc_id{ 0 }, quest_id{ 1 }, state{ 0 }, _pad0{ 0 }, current{ 0 }, required{ 1 },
+		title{ 0, }, desc{ 0, }, rewardItemID{ 0 }, rewardQty{ 0 }, _padTail{ 0, },
 		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_TALK_RESPONSE) {
 	}
 };
 
 struct QUEST_ACCEPT_REQUEST_PACKET : public PACKET_HEADER
 {
-	INT32 QuestId;
-	QUEST_ACCEPT_REQUEST_PACKET()
-		: QuestId{ 1 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_ACCEPT_REQUEST) {
-	}
+	INT32 npc_id;
+	INT32 quest_id;
+	QUEST_ACCEPT_REQUEST_PACKET() : npc_id{ 0 }, quest_id{ 1 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_ACCEPT_REQUEST) {}
 };
 
 struct QUEST_ACCEPT_RESPONSE_PACKET : public PACKET_HEADER
 {
-	UINT16 Result; // 0=성공, 그 외=실패 코드
-	INT32 QuestId;
-	UINT8 State;
+	INT32 quest_id;
+	UINT8 result;   // Unity: 1=성공
+	UINT8 state;
+
+	UINT16 current;
+	UINT16 required;
+
+	char _padTail[6]; // payload 16 bytes로 안전하게
 
 	QUEST_ACCEPT_RESPONSE_PACKET()
-		: Result{ 0 }, QuestId{ 1 }, State{ (UINT8)QUEST_STATE::NOT_ACCEPTED },
+		: quest_id{ 1 }, result{ 0 }, state{ 0 }, current{ 0 }, required{ 1 }, _padTail{ 0, },
 		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_ACCEPT_RESPONSE) {
 	}
 };
