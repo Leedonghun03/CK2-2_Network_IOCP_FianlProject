@@ -26,8 +26,12 @@ public:
 
 		mPakcetDataBufferWPos = 0;
 		mPakcetDataBufferRPos = 0;
+
+		mQuestState = QUEST_STATE::NOT_ACCEPTED;
 	}
 
+	QUEST_STATE GetQuestState() const { return mQuestState; }
+	void SetQuestState(QUEST_STATE s) { mQuestState = s; }
 		
 	//TODO SetPacketData, GetPacket 함수를 멀티스레드에 호출하고 있다면 공유변수에 lock을 걸어야 한다
 	void SetPacketData(const UINT32 dataSize_, char* pData_)
@@ -93,7 +97,8 @@ private:
 	UINT32 mPakcetDataBufferWPos = 0;
 	UINT32 mPakcetDataBufferRPos = 0;
 	char* mPakcetDataBuffer = nullptr;
-
+	QUEST_STATE mQuestState = QUEST_STATE::NOT_ACCEPTED;
+	
 	Inventory mInventory;
 };
 

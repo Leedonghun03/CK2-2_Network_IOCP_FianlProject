@@ -19,6 +19,12 @@ public enum E_PACKET
     ITEM_ADD_RESPONSE = 404,
     ITEM_USE_REQUEST = 406,
     ITEM_USE_RESPONSE = 407,
+
+    QUEST_TALK_REQUEST = 501,
+    QUEST_TALK_RESPONSE = 502,
+    QUEST_ACCEPT_REQUEST = 503,
+    QUEST_ACCEPT_RESPONSE = 504,
+    QUEST_PROGRESS_NOTIFY = 505,
 }
 
 public enum ITEM_TYPE : ushort
@@ -29,6 +35,13 @@ public enum ITEM_TYPE : ushort
     POTION = 3,
     MATERIAL = 4,
     QUEST = 5
+}
+
+public enum QUEST_STATE : byte
+{
+    NONE = 0,
+    IN_PROGRESS = 1,
+    COMPLETED = 2,
 }
 
 [StructLayout(LayoutKind.Sequential, Size = 16)]
@@ -172,4 +185,54 @@ struct P_ItemUseRequest
     public ushort slotIndex;
 }
 
-// ====================================================
+// =================== 퀘스트 ===========================
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_QuestTalkRequest
+{
+    [MarshalAs(UnmanagedType.I4)] public int npc_id;
+}
+
+[StructLayout(LayoutKind.Sequential, Size = 128)]
+public struct P_QuestTalkResponse
+{
+    [MarshalAs(UnmanagedType.I4)] public int npc_id;
+    [MarshalAs(UnmanagedType.I4)] public int quest_id;
+    [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
+
+    [MarshalAs(UnmanagedType.U2)] public ushort current;
+    [MarshalAs(UnmanagedType.U2)] public ushort required;
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)] public string title;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)] public string desc;
+
+    [MarshalAs(UnmanagedType.U4)] public uint rewardItemID;
+    [MarshalAs(UnmanagedType.U2)] public ushort rewardQty;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_QuestAcceptRequest
+{
+    [MarshalAs(UnmanagedType.I4)] public int npc_id;
+    [MarshalAs(UnmanagedType.I4)] public int quest_id;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_QuestAcceptResponse
+{
+    [MarshalAs(UnmanagedType.I4)] public int quest_id;
+    [MarshalAs(UnmanagedType.U1)] public byte result; // 1=성공
+    [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
+
+    [MarshalAs(UnmanagedType.U2)] public ushort current;
+    [MarshalAs(UnmanagedType.U2)] public ushort required;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct P_QuestProgressNotify
+{
+    [MarshalAs(UnmanagedType.I4)] public int quest_id;
+    [MarshalAs(UnmanagedType.U2)] public ushort current;
+    [MarshalAs(UnmanagedType.U2)] public ushort required;
+    [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
+}

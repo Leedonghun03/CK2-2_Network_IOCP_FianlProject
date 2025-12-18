@@ -65,6 +65,13 @@ struct Item
 
 const UINT32 MAX_INVENTORY_SIZE = 40; // 인벤토리 최대 슬롯
 
+enum class QUEST_STATE : UINT8
+{
+	NOT_ACCEPTED = 0,
+	IN_PROGRESS = 1,
+	COMPLETED = 2, // 완료 버튼 눌렀음(제출)
+};
+
 // ====================================================
 
 enum class  PACKET_ID : UINT16
@@ -121,6 +128,14 @@ enum class  PACKET_ID : UINT16
 
 	ITEM_MOVE_REQUEST = 310,           // 아이템 이동 (슬롯 변경)
 	ITEM_MOVE_RESPONSE = 311,          // 아이템 이동 응답
+
+	// Quest
+	QUEST_TALK_REQUEST = 601,
+	QUEST_TALK_RESPONSE = 602,
+	QUEST_ACCEPT_REQUEST = 603,
+	QUEST_ACCEPT_RESPONSE = 604,
+	QUEST_COMPLETE_REQUEST = 605,
+	QUEST_COMPLETE_RESPONSE = 606,
 };
 
 #pragma pack(push,1)
@@ -352,7 +367,81 @@ struct ITEM_USE_RESPONSE_PACKET : public PACKET_HEADER
 	}
 };
 
-// ====================================================
+// ===================== Quest =========================
+
+const int MAX_QUEST_TITLE_LEN = 32;
+const int MAX_QUEST_DESC_LEN = 64;
+
+struct QUEST_TALK_REQUEST_PACKET : public PACKET_HEADER
+{
+	INT32 NpcId;
+	QUEST_TALK_REQUEST_PACKET()
+		: NpcId{ 0 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_TALK_REQUEST) {
+	}
+};
+
+struct QUEST_TALK_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result;
+
+	INT32 NpcId;
+	INT32 QuestId;
+
+	UINT8 State;      // QUEST_STATE
+	UINT16 Current;   // 0/1
+	UINT16 Required;  // 1
+
+	char Title[MAX_QUEST_TITLE_LEN + 1];
+	char Desc[MAX_QUEST_DESC_LEN + 1];
+
+	QUEST_TALK_RESPONSE_PACKET()
+		: Result{ 0 }, NpcId{ 0 }, QuestId{ 1 }, State{ (UINT8)QUEST_STATE::NOT_ACCEPTED },
+		Current{ 0 }, Required{ 1 },
+		Title{ 0, }, Desc{ 0, },
+		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_TALK_RESPONSE) {
+	}
+};
+
+struct QUEST_ACCEPT_REQUEST_PACKET : public PACKET_HEADER
+{
+	INT32 QuestId;
+	QUEST_ACCEPT_REQUEST_PACKET()
+		: QuestId{ 1 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_ACCEPT_REQUEST) {
+	}
+};
+
+struct QUEST_ACCEPT_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result; // 0=성공, 그 외=실패 코드
+	INT32 QuestId;
+	UINT8 State;
+
+	QUEST_ACCEPT_RESPONSE_PACKET()
+		: Result{ 0 }, QuestId{ 1 }, State{ (UINT8)QUEST_STATE::NOT_ACCEPTED },
+		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_ACCEPT_RESPONSE) {
+	}
+};
+
+struct QUEST_COMPLETE_REQUEST_PACKET : public PACKET_HEADER
+{
+	INT32 QuestId;
+	QUEST_COMPLETE_REQUEST_PACKET()
+		: QuestId{ 1 }, PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_COMPLETE_REQUEST) {
+	}
+};
+
+struct QUEST_COMPLETE_RESPONSE_PACKET : public PACKET_HEADER
+{
+	UINT16 Result; // 0=성공, 그 외=실패 코드
+	INT32 QuestId;
+	UINT8 State;
+
+	QUEST_COMPLETE_RESPONSE_PACKET()
+		: Result{ 0 }, QuestId{ 1 }, State{ (UINT8)QUEST_STATE::NOT_ACCEPTED },
+		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_COMPLETE_RESPONSE) {
+	}
+};
+
 
 #pragma pack(pop) //위에 설정된 패킹설정이 사라짐
 
