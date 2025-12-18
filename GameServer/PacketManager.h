@@ -7,6 +7,7 @@
 #include <functional>
 #include <thread>
 #include <mutex>
+#include <string>
 
 
 class User;

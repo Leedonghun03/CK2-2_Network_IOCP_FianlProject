@@ -1,6 +1,7 @@
 #include <utility>
 #include <cstring>
 #include <sstream>
+#include <iostream>
 
 #include "UserManager.h"
 #include "RoomManager.h"
