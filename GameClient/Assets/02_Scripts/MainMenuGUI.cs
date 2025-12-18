@@ -24,7 +24,7 @@ public class MainMenuGUI : MonoBehaviour, IPacketReceiver
                 P_PlayerNameSuccess playerNameSuccess = UnsafeCode.ByteArrayToStructure<P_PlayerNameSuccess>(packet.data);
                 LocalPlayerInfo.ID = playerNameSuccess.assigned_id;
                 LocalPlayerInfo.Name = playerNameSuccess.name;
-                SceneManager.LoadSceneAsync("Scenes/MatchScene", LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync("01_Scenes/MatchScene", LoadSceneMode.Single);
                 break;
         }
     }

@@ -63,6 +63,15 @@ private:
 	void ProcessPlayerMovement(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	void ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
+	// 인벤토리 정보 요청 처리
+	void ProcessInventoryInfoRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+
+	// 아이템 추가 요청 처리
+	void ProcessItemAddRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+
+	// 아이템 사용 요청 처리
+	void ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+
 	void TempFindPath(const std::string& endPosStr, User& user, Room& room);
 
 
