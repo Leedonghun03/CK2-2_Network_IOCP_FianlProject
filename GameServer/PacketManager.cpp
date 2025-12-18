@@ -536,6 +536,10 @@ void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize
 
 // ====================================================
 
+void PacketManager::ProcessNPCQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+}
+
 void PacketManager::TempFindPath(const std::string& endPosStr, User& user, Room& room)
 {
 

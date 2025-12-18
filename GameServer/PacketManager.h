@@ -72,8 +72,10 @@ private:
 	// 아이템 사용 요청 처리
 	void ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
-	void TempFindPath(const std::string& endPosStr, User& user, Room& room);
+	// NPC 보상 처리 예시: 호진이형 이거 해줘
+	void ProcessNPCQuestComplete(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 
+	void TempFindPath(const std::string& endPosStr, User& user, Room& room);
 
 	typedef void(PacketManager::* PROCESS_RECV_PACKET_FUNCTION)(UINT32, UINT16, char*);
 	std::unordered_map<int, PROCESS_RECV_PACKET_FUNCTION> mRecvFuntionDictionary;
