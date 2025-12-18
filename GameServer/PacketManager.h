@@ -60,6 +60,8 @@ private:
 	void ProcessNoticeDBResult(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	
 	void ProcessEnterRoom(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessEnterRoomByPlayerJoined(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
+	void ProcessHitReport(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	void ProcessLeaveRoom(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	void ProcessPlayerMovement(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);
 	void ProcessRoomChatMessage(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_);

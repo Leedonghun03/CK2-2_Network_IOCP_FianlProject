@@ -9,6 +9,8 @@ public class EnemyManager : MonoBehaviour, IPacketReceiver
     public GameObject enemyPrefab;
 
     private Dictionary<long, Enemy> enemies = new Dictionary<long, Enemy>();
+    private readonly Dictionary<long, P_EnemyDamageNotify> pendingDamage = new Dictionary<long, P_EnemyDamageNotify>();
+    private readonly HashSet<long> pendingDeath = new HashSet<long>();
 
     void Awake()
     {
@@ -81,6 +83,19 @@ public class EnemyManager : MonoBehaviour, IPacketReceiver
         enemies.Add(spawnData.enemyID, enemy);
 
         Debug.Log($"[EnemyManager] Enemy spawned: ID={spawnData.enemyID}, Type={spawnData.enemyType}, Total={enemies.Count}");
+
+        if (pendingDamage.TryGetValue(spawnData.enemyID, out var dmg))
+        {
+            enemy.TakeDamage(dmg.damageAmount, dmg.remainingHealth);
+            pendingDamage.Remove(spawnData.enemyID);
+        }
+
+        if (pendingDeath.Contains(spawnData.enemyID))
+        {
+            enemy.Die();
+            enemies.Remove(spawnData.enemyID);
+            pendingDeath.Remove(spawnData.enemyID);
+        }
     }
 
     void HandleEnemyDespawn(byte[] data)
@@ -113,11 +128,14 @@ public class EnemyManager : MonoBehaviour, IPacketReceiver
         {
             enemy.TakeDamage(damageData.damageAmount, damageData.remainingHealth);
 
-            // 공격자가 나면 메시지 표시
             if (damageData.attackerID == LocalPlayerInfo.ID)
-            {
                 Debug.Log($"Hit! Damage: {damageData.damageAmount}");
-            }
+        }
+        else
+        {
+            // 스폰이 아직이면 저장해뒀다가 스폰 시 적용
+            pendingDamage[damageData.enemyID] = damageData;
+            Debug.LogWarning($"[EnemyManager] Damage arrived before spawn. Cached. enemyID={damageData.enemyID}");
         }
     }
 
@@ -130,13 +148,15 @@ public class EnemyManager : MonoBehaviour, IPacketReceiver
             enemy.Die();
             enemies.Remove(deathData.enemyID);
 
-            // 처치자가 나면 메시지 표시
             if (deathData.killerID == LocalPlayerInfo.ID)
-            {
                 Debug.Log("적을 처치했습니다!");
-            }
 
             Debug.Log($"[EnemyManager] Enemy died: ID={deathData.enemyID}, Total={enemies.Count}");
+        }
+        else
+        {
+            pendingDeath.Add(deathData.enemyID);
+            Debug.LogWarning($"[EnemyManager] Death arrived before spawn. Cached. enemyID={deathData.enemyID}");
         }
     }
 

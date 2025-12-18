@@ -23,6 +23,7 @@ void PacketManager::Init(const UINT32 maxClient_)
 	mRecvFuntionDictionary[(int)RedisTaskID::RESPONSE_NOTICE] = &PacketManager::ProcessNoticeDBResult;
 	
 	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_ENTER_REQUEST] = &PacketManager::ProcessEnterRoom;
+	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_NEW_USER_NTF] = &PacketManager::ProcessEnterRoomByPlayerJoined;
 	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_LEAVE_REQUEST] = &PacketManager::ProcessLeaveRoom;
 	mRecvFuntionDictionary[(int)PACKET_ID::ROOM_CHAT_REQUEST] = &PacketManager::ProcessRoomChatMessage;
 	mRecvFuntionDictionary[(int)PACKET_ID::PLAYER_MOVEMENT] = &PacketManager::ProcessPlayerMovement;
@@ -39,14 +40,11 @@ void PacketManager::Init(const UINT32 maxClient_)
 
 	// 공격 패킷 등록
 	mRecvFuntionDictionary[(int)PACKET_ID::PLAYER_ATTACK_REQUEST] = &PacketManager::ProcessPlayerAttack;
+	mRecvFuntionDictionary[(int)PACKET_ID::HIT_REPORT] = &PacketManager::ProcessHitReport;
 
 	CreateCompent(maxClient_);
 
 	mRedisMgr = new RedisManager;// std::make_unique<RedisManager>();
-
-	printf("[InitCheck] QUEST_TALK_REQUEST=%d, QUEST_TALK_RESPONSE=%d\n",
-		(int)PACKET_ID::QUEST_TALK_REQUEST,
-		(int)PACKET_ID::QUEST_TALK_RESPONSE);
 }
 
 void PacketManager::CreateCompent(const UINT32 maxClient_)
@@ -219,7 +217,10 @@ void PacketManager::ProcessRecvPacket(const UINT32 clientIndex_, const UINT16 pa
 	{
 		(this->*(iter->second))(clientIndex_, packetSize_, pPacket_);
 	}
-
+	else
+	{
+		printf("[WARN] No handler. packetId=%u size=%u client=%u\n", packetId_, packetSize_, clientIndex_);
+	}
 }
 
 void PacketManager::ProcessUserConnect(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
@@ -372,6 +373,59 @@ void PacketManager::ProcessEnterRoom(UINT32 clientIndex_, UINT16 packetSize_, ch
 	
 }
 
+void PacketManager::ProcessEnterRoomByPlayerJoined(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	UNREFERENCED_PARAMETER(packetSize_);
+	UNREFERENCED_PARAMETER(pPacket_);
+
+	auto pReqUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
+	if (!pReqUser) return;
+
+	const INT32 roomNumber = 0; // 일단 0번 방으로 고정 (필요하면 나중에 확장)
+
+	auto enterResult = mRoomManager->EnterUser(roomNumber, pReqUser);
+	if (enterResult != (UINT16)ERROR_CODE::NONE)
+	{
+		printf("[EnterBy208] enter failed. client=%u result=%d\n", clientIndex_, (int)enterResult);
+		return;
+	}
+
+	auto pRoom = mRoomManager->GetRoomByNumber(roomNumber);
+	if (!pRoom) return;
+
+	// 방에 있는 유저들에게 "새 유저 입장(208)" 알림 (클라도 208 수신 처리함)
+	pRoom->NotifyUserEnter((INT32)clientIndex_, pReqUser->GetUserId());
+
+	printf("[EnterBy208] client=%u entered room=%d\n", clientIndex_, roomNumber);
+}
+
+void PacketManager::ProcessHitReport(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
+{
+	if (packetSize_ < sizeof(HIT_REPORT_PACKET))
+	{
+		printf("[HitReport] size mismatch. got=%u expected=%zu\n", packetSize_, sizeof(HIT_REPORT_PACKET));
+		return;
+	}
+
+	auto* req = reinterpret_cast<HIT_REPORT_PACKET*>(pPacket_);
+
+	auto* user = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
+	if (!user) return;
+
+	if (user->GetDomainState() != User::DOMAIN_STATE::ROOM)
+	{
+		printf("[HitReport] user not in room. client=%u\n", clientIndex_);
+		return;
+	}
+
+	INT32 roomNum = user->GetCurrentRoom();
+	Room* room = mRoomManager->GetRoomByNumber(roomNum);
+	if (!room) return;
+
+	printf("[HitReport] client=%u enemy=%lld dmg=%d\n", clientIndex_, req->enemyID, req->damage);
+
+	room->ProcessHitReport((INT64)clientIndex_, req->enemyID, req->damage);
+}
 
 void PacketManager::ProcessLeaveRoom(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
@@ -596,6 +650,7 @@ void PacketManager::ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, 
 	QUEST_ACCEPT_RESPONSE_PACKET res;
 	res.quest_id = pReq->quest_id;
 
+	// 이미 수락/진행 중이면 실패
 	if (pUser->GetQuestState() != QUEST_STATE::NOT_ACCEPTED)
 	{
 		res.result = 0;
@@ -606,13 +661,31 @@ void PacketManager::ProcessQuestAccept(UINT32 clientIndex_, UINT16 packetSize_, 
 		return;
 	}
 
+	// 유저 상태 변경
 	pUser->SetQuestState(QUEST_STATE::IN_PROGRESS);
 
+	// 응답 구성
 	res.result = 1; // Unity는 1이면 성공 처리
 	res.state = (UINT8)pUser->GetQuestState();
 	res.current = 0;
 	res.required = 1;
 
+	// Room에 퀘스트 진행 데이터 생성/저장
+	{
+		INT32 roomNum = pUser->GetCurrentRoom();
+		Room* room = mRoomManager->GetRoomByNumber(roomNum);
+		if (room)
+		{
+			// Room.h에 추가한 함수
+			room->SetQuestAccepted((INT64)clientIndex_, (INT32)pReq->quest_id, (UINT16)res.required);
+		}
+		else
+		{
+			printf("[QuestAccept] room not found. client=%u room=%d\n", clientIndex_, roomNum);
+		}
+	}
+
+	// 응답 전송
 	SendPacketFunc(clientIndex_, sizeof(res), (char*)&res);
 }
 

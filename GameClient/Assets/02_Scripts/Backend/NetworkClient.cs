@@ -210,6 +210,21 @@ public unsafe class NetworkClient
         }
     }
 
+    public void SendHitReport(long enemyId, int damage, Vector3 hitPos, uint seq)
+    {
+        P_HitReport pkt = new P_HitReport
+        {
+            enemyID = enemyId,
+            damage = damage,
+            hitX = hitPos.x,
+            hitY = hitPos.y,
+            hitZ = hitPos.z,
+            seq = seq
+        };
+
+        SendPacket(E_PACKET.HIT_REPORT, pkt);
+    }
+
     public void SendPacket(E_PACKET packetId, object packet)
     {
         int size = Marshal.SizeOf(packet);

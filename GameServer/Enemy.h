@@ -65,5 +65,10 @@ private:
     bool mHasPatrolTarget = false;
     float mIdleTime = 0.0f;
 
+    float PATROL_MIN_X = 17.0f;
+    float PATROL_MAX_X = 30.0f;
+    float PATROL_MIN_Z = 50.0f;
+    float PATROL_MAX_Z = 85.0f;
+
     std::chrono::steady_clock::time_point mLastUpdateTime;
 };

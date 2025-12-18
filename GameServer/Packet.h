@@ -132,6 +132,7 @@ enum class  PACKET_ID : UINT16
 	// Combat System
 	PLAYER_ATTACK_REQUEST = 401,
 	PLAYER_ATTACK_RESPONSE = 402,
+	HIT_REPORT = 404,
 
 	// Enemy System
 	ENEMY_SPAWN_NOTIFY = 421,
@@ -145,8 +146,9 @@ enum class  PACKET_ID : UINT16
 	QUEST_TALK_RESPONSE = 502,
 	QUEST_ACCEPT_REQUEST = 503,
 	QUEST_ACCEPT_RESPONSE = 504,
-	QUEST_COMPLETE_REQUEST = 505,
-	QUEST_COMPLETE_RESPONSE = 506,
+	QUEST_PROGRESS_NOTIFY = 505,
+	QUEST_COMPLETE_REQUEST = 506,
+	QUEST_COMPLETE_RESPONSE = 507,
 };
 
 #pragma pack(push,1)
@@ -442,7 +444,6 @@ struct ENEMY_PATROL_UPDATE_PACKET : public PACKET_HEADER
 	}
 };
 
-// 적 데미지 알림
 struct ENEMY_DAMAGE_NOTIFY_PACKET : public PACKET_HEADER
 {
 	INT64 enemyID;
@@ -451,7 +452,8 @@ struct ENEMY_DAMAGE_NOTIFY_PACKET : public PACKET_HEADER
 	INT32 remainingHealth;
 
 	ENEMY_DAMAGE_NOTIFY_PACKET()
-		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DAMAGE_NOTIFY) {
+		: enemyID(0), attackerID(0), damageAmount(0), remainingHealth(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DAMAGE_NOTIFY) {
 	}
 };
 
@@ -463,6 +465,17 @@ struct ENEMY_DEATH_NOTIFY_PACKET : public PACKET_HEADER
 
 	ENEMY_DEATH_NOTIFY_PACKET()
 		: PACKET_HEADER(sizeof(*this), PACKET_ID::ENEMY_DEATH_NOTIFY) {
+	}
+};
+
+struct HIT_REPORT_PACKET : public PACKET_HEADER
+{
+	INT64 enemyID;     // INT64로
+	INT32 damage;
+	float hitX, hitY, hitZ;   // 선택
+	UINT32 seq;               // 선택
+	HIT_REPORT_PACKET() : enemyID(0), damage(0), hitX(0), hitY(0), hitZ(0), seq(0),
+		PACKET_HEADER(sizeof(*this), PACKET_ID::HIT_REPORT) {
 	}
 };
 // ====================================================
@@ -547,6 +560,21 @@ struct QUEST_COMPLETE_RESPONSE_PACKET : public PACKET_HEADER
 		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_COMPLETE_RESPONSE) {
 	}
 };
+
+struct QUEST_PROGRESS_NOTIFY_PACKET : public PACKET_HEADER
+{
+	INT32 quest_id;
+	UINT16 current;
+	UINT16 required;
+	UINT8 state;
+	UINT8 _pad[3]; // 패킹 안정용
+
+	QUEST_PROGRESS_NOTIFY_PACKET()
+		: quest_id(0), current(0), required(0), state(0), _pad{ 0,0,0 },
+		PACKET_HEADER(sizeof(*this), PACKET_ID::QUEST_PROGRESS_NOTIFY) {
+	}
+};
+
 // ====================================================
 
 #pragma pack(pop) //위에 설정된 패킹설정이 사라짐
