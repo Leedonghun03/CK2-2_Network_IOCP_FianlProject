@@ -97,11 +97,11 @@ public:
     {
         // 스포너 위치 정의
         Vector3 spawnerPositions[] = {
-            { 10.0f, 0.5f, 10.0f },
-            { -10.0f, 0.5f, 10.0f },
-            { 10.0f, 0.5f, -10.0f },
-            { -10.0f, 0.5f, -10.0f },
-            { 0.0f, 0.5f, 0.0f }
+            { 19.0f, 4.2f, 60.0f },
+            { 19.0f, 4.2f, 70.0f },
+            { 25.0f, 4.2f, 55.0f },
+            { 25.0f, 4.2f, 75.0f },
+            { 25.0f, 4.2f, 65.0f }
         };
 
         ENEMY_TYPE spawnerTypes[] = {
@@ -256,13 +256,19 @@ public:
             Vector3 enemyPos = enemy->GetPosition();
 
             // 공격자 앞쪽 박스 범위 체크
+            Vector3 forward = attackDir;
+            forward.y = 0.0f;
+            float len = sqrtf(forward.x * forward.x + forward.z * forward.z);
+            if (len < 0.0001f) { forward = { 0,0,1 }; }
+            else { forward.x /= len; forward.z /= len; }
+
             Vector3 attackCenter = attackPos;
             attackCenter.x += attackDir.x * (ATTACK_RANGE / 2.0f);
             attackCenter.z += attackDir.z * (ATTACK_RANGE / 2.0f);
-            attackCenter.y += ATTACK_HEIGHT / 2.0f;
+            attackCenter.y = attackPos.y;
 
             // 박스 충돌 체크
-            if (IsPointInBox(enemyPos, attackCenter, attackDir, ATTACK_WIDTH, ATTACK_HEIGHT, ATTACK_RANGE))
+            if (IsPointInBox(enemyPos, attackCenter, forward, ATTACK_WIDTH, ATTACK_HEIGHT, ATTACK_RANGE))
             {
                 hitEnemy = enemy;
                 hitEnemyID = enemy->GetEnemyID();
@@ -325,18 +331,34 @@ public:
     bool IsPointInBox(const Vector3& point, const Vector3& boxCenter, const Vector3& forward,
         float width, float height, float depth)
     {
-        float halfWidth = width / 2.0f;
-        float halfHeight = height / 2.0f;
-        float halfDepth = depth / 2.0f;
+        const float halfW = width * 0.5f;
+        const float halfH = height * 0.5f;
+        const float halfD = depth * 0.5f;
 
-        Vector3 localPoint = point;
-        localPoint.x -= boxCenter.x;
-        localPoint.y -= boxCenter.y;
-        localPoint.z -= boxCenter.z;
+        // forward는 XZ 평면 기준 정규화된 벡터가 들어온다고 가정
+        Vector3 f = forward;
+        f.y = 0.0f;
 
-        return (fabs(localPoint.x) <= halfWidth &&
-            fabs(localPoint.y) <= halfHeight &&
-            fabs(localPoint.z) <= halfDepth);
+        float flen = sqrtf(f.x * f.x + f.z * f.z);
+        if (flen < 0.0001f) { f = { 0,0,1 }; }
+        else { f.x /= flen; f.z /= flen; }
+
+        // right = forward를 90도 회전
+        Vector3 r = { -f.z, 0.0f, f.x };
+        Vector3 u = { 0.0f, 1.0f, 0.0f };
+
+        Vector3 d = point;
+        d.x -= boxCenter.x;
+        d.y -= boxCenter.y;
+        d.z -= boxCenter.z;
+
+        float localX = d.x * r.x + d.y * r.y + d.z * r.z; // right
+        float localY = d.x * u.x + d.y * u.y + d.z * u.z; // up
+        float localZ = d.x * f.x + d.y * f.y + d.z * f.z; // forward
+
+        return (fabs(localX) <= halfW &&
+            fabs(localY) <= halfH &&
+            fabs(localZ) <= halfD);
     }
 
 	UINT16 EnterUser(User* user_)
@@ -381,6 +403,24 @@ public:
 			SendPacketFunc(user_->GetNetConnIdx(), roomUserInfoNtf.PacketLength, (char*)&roomUserInfoNtf);
 		}
 
+        int sent = 0;
+        for (auto& pair : mEnemies)
+        {
+            Enemy* enemy = pair.second;
+            if (!enemy || enemy->IsDead()) continue;
+
+            ENEMY_SPAWN_NOTIFY_PACKET spawnPacket;
+            spawnPacket.enemyID = enemy->GetEnemyID();
+            spawnPacket.enemyType = (INT32)enemy->GetEnemyType();
+            spawnPacket.position = enemy->GetPosition();
+            spawnPacket.rotation = enemy->GetRotation();
+            spawnPacket.maxHealth = enemy->GetMaxHealth();
+            spawnPacket.currentHealth = enemy->GetCurrentHealth();
+
+            SendPacketFunc(user_->GetNetConnIdx(), spawnPacket.PacketLength, (char*)&spawnPacket);
+            sent++;
+        }
+        printf("[Room %d] Sent initial enemies to user(%d): %d\n", mRoomNum, user_->GetNetConnIdx(), sent);
 
 		return (UINT16)ERROR_CODE::NONE;
 	}
@@ -442,6 +482,44 @@ public:
 		
 	std::function<void(UINT32, UINT32, char*)> SendPacketFunc;
 
+    void ProcessHitReport(INT64 attackerID, INT64 enemyID, INT32 damage)
+    {
+        auto it = mEnemies.find(enemyID);
+        if (it == mEnemies.end() || it->second == nullptr)
+        {
+            printf("[Room %d] HitReport enemy not found. enemy=%lld\n", mRoomNum, enemyID);
+            return;
+        }
+
+        Enemy* enemy = it->second;
+        if (enemy->IsDead()) return;
+
+        if (damage <= 0) damage = 1;
+
+        bool isDead = enemy->TakeDamage(damage);
+
+        ENEMY_DAMAGE_NOTIFY_PACKET damagePacket;
+        damagePacket.enemyID = enemyID;
+        damagePacket.attackerID = attackerID;
+        damagePacket.damageAmount = damage;
+        damagePacket.remainingHealth = enemy->GetCurrentHealth();
+        SendToAllUser(damagePacket.PacketLength, (char*)&damagePacket, -1, false);
+
+        printf("[Room %d] Sent 424 damage. enemy=%lld hp=%d\n", mRoomNum, enemyID, enemy->GetCurrentHealth());
+
+        if (isDead)
+        {
+            ENEMY_DEATH_NOTIFY_PACKET deathPacket;
+            deathPacket.enemyID = enemyID;
+            deathPacket.killerID = attackerID;
+            SendToAllUser(deathPacket.PacketLength, (char*)&deathPacket, -1, false);
+
+            // 킬러 퀘스트 진행도 +1 및 505 전송
+            OnEnemyKilledForQuest(attackerID);
+
+            NotifySpawnerEnemyDeath(enemy);
+        }
+    }
 
 	void SendToAllUser(const UINT16 dataSize_, char* data_, const INT32 passUserIndex_, bool exceptMe)
 	{
@@ -471,6 +549,64 @@ public:
         return count;
     }
 
+    User* FindUserByConnIdx(INT64 connIdx)
+    {
+        for (auto* u : mUserList)
+        {
+            if (u && u->GetNetConnIdx() == connIdx)
+                return u;
+        }
+        return nullptr;
+    }
+
+    Enemy* FindEnemyById(INT64 enemyID)
+    {
+        auto it = mEnemies.find(enemyID);
+        if (it == mEnemies.end()) return nullptr;
+        return it->second;
+    }
+
+    void SetQuestAccepted(INT64 userConnIdx, INT32 questId, UINT16 required)
+    {
+        auto& qp = mQuestProgressByUser[userConnIdx];
+        qp.questId = questId;
+        qp.state = QUEST_STATE::IN_PROGRESS;
+        qp.current = 0;
+        qp.required = (required == 0 ? 1 : required);
+
+        printf("[Room %d] Quest accepted. user=%lld quest=%d req=%d\n",
+            mRoomNum, userConnIdx, questId, (int)qp.required);
+    }
+
+    void OnEnemyKilledForQuest(INT64 killerConnIdx)
+    {
+        auto it = mQuestProgressByUser.find(killerConnIdx);
+        if (it == mQuestProgressByUser.end())
+            return;
+
+        QuestProgress& qp = it->second;
+        if (qp.state != QUEST_STATE::IN_PROGRESS)
+            return;
+
+        qp.current++;
+        if (qp.current >= qp.required)
+        {
+            qp.current = qp.required;
+            qp.state = QUEST_STATE::COMPLETED;
+        }
+
+        QUEST_PROGRESS_NOTIFY_PACKET ntf;
+        ntf.quest_id = qp.questId;
+        ntf.current = qp.current;
+        ntf.required = qp.required;
+        ntf.state = (UINT8)qp.state;
+
+        SendPacketFunc((UINT32)killerConnIdx, (UINT32)ntf.PacketLength, (char*)&ntf);
+
+        printf("[Room %d] Quest progress notify(505). user=%lld quest=%d %d/%d state=%d\n",
+            mRoomNum, killerConnIdx, qp.questId, qp.current, qp.required, (int)qp.state);
+    }
+
 private:
     INT64 GenerateEnemyID()
     {
@@ -497,6 +633,16 @@ private:
     // 업데이트 스레드
     bool mIsRunning = false;
     std::thread mUpdateThread;
+
+    struct QuestProgress
+    {
+        INT32 questId = 0;
+        QUEST_STATE state = QUEST_STATE::NOT_ACCEPTED;
+        UINT16 current = 0;
+        UINT16 required = 1;
+    };
+
+    std::unordered_map<INT64, QuestProgress> mQuestProgressByUser;
 };
 
 

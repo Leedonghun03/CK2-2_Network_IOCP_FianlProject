@@ -45,7 +45,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage, int remainingHp)
     {
-        currentHealth = remainingHp;
+        if (maxHealth <= 0) maxHealth = Mathf.Max(maxHealth, remainingHp);
+
+        currentHealth = Mathf.Clamp(remainingHp, 0, maxHealth);
         UpdateHealthUI();
 
         StartCoroutine(FlashRed());

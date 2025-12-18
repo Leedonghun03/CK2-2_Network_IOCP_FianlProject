@@ -35,6 +35,13 @@ namespace {
         float angle = atan2f(forward.x, forward.z);
         return Quaternion{ 0, sinf(angle / 2.0f), 0, cosf(angle / 2.0f) };
     }
+
+    inline float ClampFloat(float v, float minV, float maxV)
+    {
+        if (v < minV) return minV;
+        if (v > maxV) return maxV;
+        return v;
+    }
 }
 
 void Enemy::Init(const INT64 id, const Vector3& spawnPos, ENEMY_TYPE type)
@@ -113,6 +120,9 @@ void Enemy::UpdatePatrol(float deltaTime)
     Vector3 movement = Vector3_Multiply(direction, mMoveSpeed * deltaTime);
     position = Vector3_Addition(position, movement);
 
+    position.x = ClampFloat(position.x, PATROL_MIN_X, PATROL_MAX_X);
+    position.z = ClampFloat(position.z, PATROL_MIN_Z, PATROL_MAX_Z);
+
     // 회전
     if (Vector3_Length(direction) > 0.01f)
     {
@@ -134,13 +144,16 @@ void Enemy::UpdateIdle(float deltaTime)
 
 void Enemy::SetRandomPatrolTarget()
 {
-    // 스폰 위치 기준으로 랜덤 패트롤 위치 설정
     float randomX = ((rand() % 200) - 100) / 100.0f * mPatrolRange;
     float randomZ = ((rand() % 200) - 100) / 100.0f * mPatrolRange;
 
     mPatrolTarget = mSpawnPosition;
     mPatrolTarget.x += randomX;
     mPatrolTarget.z += randomZ;
+
+    // 경계 밖 목적지 방지 (BoxCollider 범위로 제한)
+    mPatrolTarget.x = ClampFloat(mPatrolTarget.x, PATROL_MIN_X, PATROL_MAX_X);
+    mPatrolTarget.z = ClampFloat(mPatrolTarget.z, PATROL_MIN_Z, PATROL_MAX_Z);
 
     mHasPatrolTarget = true;
 }

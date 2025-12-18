@@ -28,6 +28,7 @@ public enum E_PACKET : ushort
     // Combat
     PLAYER_ATTACK_REQUEST = 401,
     PLAYER_ATTACK_RESPONSE = 402,
+    HIT_REPORT = 404,
 
     // Enemy
     ENEMY_SPAWN_NOTIFY = 421,
@@ -229,6 +230,28 @@ public struct P_PlayerAttackResponse
 
     [MarshalAs(UnmanagedType.I4)]
     public int damageAmount;
+}
+
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct P_HitReport
+{
+    [MarshalAs(UnmanagedType.I8)]
+    public long enemyID;
+
+    [MarshalAs(UnmanagedType.I4)]
+    public int damage;
+
+    [MarshalAs(UnmanagedType.R4)]
+    public float hitX;
+
+    [MarshalAs(UnmanagedType.R4)]
+    public float hitY;
+
+    [MarshalAs(UnmanagedType.R4)]
+    public float hitZ;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public uint seq;
 }
 
 // 적 패킷들
