@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/cmake_install.cmake",
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/DebugUtils/cmake_install.cmake",
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/Detour/cmake_install.cmake",
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/DetourCrowd/cmake_install.cmake",
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/DetourTileCache/cmake_install.cmake",
+		"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/Recast/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

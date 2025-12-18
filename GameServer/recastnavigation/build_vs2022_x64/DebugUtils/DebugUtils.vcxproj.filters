@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\recastnavigation\DebugUtils\Source\DebugDraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\recastnavigation\DebugUtils\Source\DetourDebugDraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\recastnavigation\DebugUtils\Source\RecastDebugDraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\recastnavigation\DebugUtils\Source\RecastDump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hyeon-308-9\Network_IOCP_FianlProject\GameServer\recastnavigation\DebugUtils\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{927FB829-6BAA-3DF1-9459-FEBF27CB8A6A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

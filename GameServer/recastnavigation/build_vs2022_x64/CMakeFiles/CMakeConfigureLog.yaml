@@ -1,0 +1,2004 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/"
+    found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      msbuild 버전 17.13.15+18b3035f6(.NET Framework용)
+      빌드 시작: 2025-12-19 오전 6:17:45
+      
+      1 노드의 "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdC\\CompilerIdC.vcxproj" 프로젝트(기본 대상)입니다.
+      PrepareForBuild:
+        "Debug\\" 디렉터리를 만들고 있습니다.
+        구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+        "Debug\\CompilerIdC.tlog\\" 디렉터리를 만들고 있습니다.
+      InitializeBuildStatus:
+        "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\\CompilerIdC.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+        "Debug\\CompilerIdC.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+        "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate"에 연결(touching)하고 있습니다.
+      "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdC\\CompilerIdC.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+      
+      빌드했습니다.
+          경고 0개
+          오류 0개
+      
+      경과 시간: 00:00:00.55
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/4.2.1/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link.com"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link.exe"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link"
+      - "C:/Windows/System32/lld-link.com"
+      - "C:/Windows/System32/lld-link.exe"
+      - "C:/Windows/System32/lld-link"
+      - "C:/Windows/lld-link.com"
+      - "C:/Windows/lld-link.exe"
+      - "C:/Windows/lld-link"
+      - "C:/Windows/System32/wbem/lld-link.com"
+      - "C:/Windows/System32/wbem/lld-link.exe"
+      - "C:/Windows/System32/wbem/lld-link"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
+      - "C:/Windows/System32/OpenSSH/lld-link.com"
+      - "C:/Windows/System32/OpenSSH/lld-link.exe"
+      - "C:/Windows/System32/OpenSSH/lld-link"
+      - "C:/Program Files/dotnet/lld-link.com"
+      - "C:/Program Files/dotnet/lld-link.exe"
+      - "C:/Program Files/dotnet/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link"
+      - "C:/Program Files/Memurai/lld-link.com"
+      - "C:/Program Files/Memurai/lld-link.exe"
+      - "C:/Program Files/Memurai/lld-link"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link"
+      - "C:/Program Files/CMake/bin/lld-link.com"
+      - "C:/Program Files/CMake/bin/lld-link.exe"
+      - "C:/Program Files/CMake/bin/lld-link"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_MT"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "mt"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/mt.com"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/mt.exe"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/mt"
+      - "C:/Windows/System32/mt.com"
+      - "C:/Windows/System32/mt.exe"
+      - "C:/Windows/System32/mt"
+      - "C:/Windows/mt.com"
+      - "C:/Windows/mt.exe"
+      - "C:/Windows/mt"
+      - "C:/Windows/System32/wbem/mt.com"
+      - "C:/Windows/System32/wbem/mt.exe"
+      - "C:/Windows/System32/wbem/mt"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt"
+      - "C:/Windows/System32/OpenSSH/mt.com"
+      - "C:/Windows/System32/OpenSSH/mt.exe"
+      - "C:/Windows/System32/OpenSSH/mt"
+      - "C:/Program Files/dotnet/mt.com"
+      - "C:/Program Files/dotnet/mt.exe"
+      - "C:/Program Files/dotnet/mt"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt"
+      - "C:/Program Files/Common Files/Autodesk Shared/mt.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/mt.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/mt"
+      - "C:/Program Files/Memurai/mt.com"
+      - "C:/Program Files/Memurai/mt.exe"
+      - "C:/Program Files/Memurai/mt"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/mt"
+      - "C:/Program Files/CMake/bin/mt.com"
+      - "C:/Program Files/CMake/bin/mt.exe"
+      - "C:/Program Files/CMake/bin/mt"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/mt.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/mt.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/mt"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/mt.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/mt.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/mt"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/mt.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/mt.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/mt"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lib"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lib.com"
+    found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lib.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/"
+    found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      msbuild 버전 17.13.15+18b3035f6(.NET Framework용)
+      빌드 시작: 2025-12-19 오전 6:17:45
+      
+      1 노드의 "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" 프로젝트(기본 대상)입니다.
+      PrepareForBuild:
+        "Debug\\" 디렉터리를 만들고 있습니다.
+        구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+        "Debug\\CompilerIdCXX.tlog\\" 디렉터리를 만들고 있습니다.
+      InitializeBuildStatus:
+        "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+        "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate"에 연결(touching)하고 있습니다.
+      "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+      
+      빌드했습니다.
+          경고 0개
+          오류 0개
+      
+      경과 시간: 00:00:00.55
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/4.2.1/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link.com"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link.exe"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/lld-link"
+      - "C:/Windows/System32/lld-link.com"
+      - "C:/Windows/System32/lld-link.exe"
+      - "C:/Windows/System32/lld-link"
+      - "C:/Windows/lld-link.com"
+      - "C:/Windows/lld-link.exe"
+      - "C:/Windows/lld-link"
+      - "C:/Windows/System32/wbem/lld-link.com"
+      - "C:/Windows/System32/wbem/lld-link.exe"
+      - "C:/Windows/System32/wbem/lld-link"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
+      - "C:/Windows/System32/OpenSSH/lld-link.com"
+      - "C:/Windows/System32/OpenSSH/lld-link.exe"
+      - "C:/Windows/System32/OpenSSH/lld-link"
+      - "C:/Program Files/dotnet/lld-link.com"
+      - "C:/Program Files/dotnet/lld-link.exe"
+      - "C:/Program Files/dotnet/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/lld-link"
+      - "C:/Program Files/Memurai/lld-link.com"
+      - "C:/Program Files/Memurai/lld-link.exe"
+      - "C:/Program Files/Memurai/lld-link"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/lld-link"
+      - "C:/Program Files/CMake/bin/lld-link.com"
+      - "C:/Program Files/CMake/bin/lld-link.exe"
+      - "C:/Program Files/CMake/bin/lld-link"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lld-link"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lld-link"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lld-link"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineRCCompiler.cmake:40 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC.cmake:580 (enable_language)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC.cmake:553 (__windows_compiler_msvc_enable_rc)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC-C.cmake:5 (__windows_compiler_msvc)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCInformation.cmake:48 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_RC_COMPILER"
+    description: "RC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rc"
+    candidate_directories:
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/CMake/sbin/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "C:/Program Files/RecastNavigation/sbin/"
+      - "C:/Program Files/RecastNavigation/"
+    searched_directories:
+      - "C:/Windows/System32/rc.com"
+      - "C:/Windows/System32/rc.exe"
+      - "C:/Windows/System32/rc"
+      - "C:/Windows/rc.com"
+      - "C:/Windows/rc.exe"
+      - "C:/Windows/rc"
+      - "C:/Windows/System32/wbem/rc.com"
+      - "C:/Windows/System32/wbem/rc.exe"
+      - "C:/Windows/System32/wbem/rc"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc"
+      - "C:/Windows/System32/OpenSSH/rc.com"
+      - "C:/Windows/System32/OpenSSH/rc.exe"
+      - "C:/Windows/System32/OpenSSH/rc"
+      - "C:/Program Files/dotnet/rc.com"
+      - "C:/Program Files/dotnet/rc.exe"
+      - "C:/Program Files/dotnet/rc"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc"
+      - "C:/Program Files/Common Files/Autodesk Shared/rc.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/rc.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/rc"
+      - "C:/Program Files/Memurai/rc.com"
+      - "C:/Program Files/Memurai/rc.exe"
+      - "C:/Program Files/Memurai/rc"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/rc.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/rc.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/rc"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/rc.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/rc.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/rc"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/rc.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/rc.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/rc"
+      - "C:/Program Files/bin/rc.com"
+      - "C:/Program Files/bin/rc.exe"
+      - "C:/Program Files/bin/rc"
+      - "C:/Program Files/sbin/rc.com"
+      - "C:/Program Files/sbin/rc.exe"
+      - "C:/Program Files/sbin/rc"
+      - "C:/Program Files/rc.com"
+      - "C:/Program Files/rc.exe"
+      - "C:/Program Files/rc"
+      - "C:/Program Files (x86)/bin/rc.com"
+      - "C:/Program Files (x86)/bin/rc.exe"
+      - "C:/Program Files (x86)/bin/rc"
+      - "C:/Program Files (x86)/sbin/rc.com"
+      - "C:/Program Files (x86)/sbin/rc.exe"
+      - "C:/Program Files (x86)/sbin/rc"
+      - "C:/Program Files (x86)/rc.com"
+      - "C:/Program Files (x86)/rc.exe"
+      - "C:/Program Files (x86)/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Program Files/CMake/sbin/rc.com"
+      - "C:/Program Files/CMake/sbin/rc.exe"
+      - "C:/Program Files/CMake/sbin/rc"
+      - "C:/Program Files/CMake/rc.com"
+      - "C:/Program Files/CMake/rc.exe"
+      - "C:/Program Files/CMake/rc"
+      - "C:/Program Files/RecastNavigation/bin/rc.com"
+      - "C:/Program Files/RecastNavigation/bin/rc.exe"
+      - "C:/Program Files/RecastNavigation/bin/rc"
+      - "C:/Program Files/RecastNavigation/sbin/rc.com"
+      - "C:/Program Files/RecastNavigation/sbin/rc.exe"
+      - "C:/Program Files/RecastNavigation/sbin/rc"
+      - "C:/Program Files/RecastNavigation/rc.com"
+      - "C:/Program Files/RecastNavigation/rc.exe"
+      - "C:/Program Files/RecastNavigation/rc"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/RecastNavigation"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ze3sid"
+      binary: "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ze3sid"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ze3sid'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8c6ad.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 踰꾩쟾 17.13.15+18b3035f6(.NET Framework??
+        鍮뚮뱶 ?쒖옉: 2025-12-19 ?ㅼ쟾 6:17:46
+        
+        1 ?몃뱶??"C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ze3sid\\cmTC_8c6ad.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
+        PrepareForBuild:
+          援ъ“??異쒕젰???ъ슜?????덉뒿?덈떎. 而댄뙆?쇰윭 吏꾨떒???쒖떇?\xc2\x80 ?ㅻ쪟 怨꾩링 援ъ“瑜?諛섏쁺?⑸땲?? ?먯꽭???댁슜?\xc2\x80 https://aka.ms/cpp/structured-output??李몄“?섏꽭??
+          "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ze3sid\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+        InitializeBuildStatus:
+          "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_8c6ad.dir\\Debug\\\\" /Fd"cmTC_8c6ad.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ 理쒖쟻??而댄뙆?쇰윭 踰꾩쟾 19.43.34808(x64)
+          Copyright (c) Microsoft Corporation. All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_8c6ad.dir\\Debug\\\\" /Fd"cmTC_8c6ad.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ze3sid\\Debug\\cmTC_8c6ad.exe" /INCREMENTAL /ILK:"cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ze3sid/Debug/cmTC_8c6ad.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ze3sid/Debug/cmTC_8c6ad.lib" /MACHINE:X64  /machine:x64 cmTC_8c6ad.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_8c6ad.vcxproj -> C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ze3sid\\Debug\\cmTC_8c6ad.exe
+        FinalizeBuildStatus:
+          "cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
+          "cmTC_8c6ad.dir\\Debug\\cmTC_8c6ad.tlog\\cmTC_8c6ad.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ze3sid\\cmTC_8c6ad.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
+        
+        鍮뚮뱶?덉뒿?덈떎.
+            寃쎄퀬 0媛?
+            ?ㅻ쪟 0媛?
+        
+        寃쎄낵 ?쒓컙: 00:00:00.56
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the C compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.43.34808.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ix7ge4"
+      binary: "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ix7ge4"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ix7ge4'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d524f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 踰꾩쟾 17.13.15+18b3035f6(.NET Framework??
+        鍮뚮뱶 ?쒖옉: 2025-12-19 ?ㅼ쟾 6:17:47
+        
+        1 ?몃뱶??"C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ix7ge4\\cmTC_d524f.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
+        PrepareForBuild:
+          援ъ“??異쒕젰???ъ슜?????덉뒿?덈떎. 而댄뙆?쇰윭 吏꾨떒???쒖떇?\xc2\x80 ?ㅻ쪟 怨꾩링 援ъ“瑜?諛섏쁺?⑸땲?? ?먯꽭???댁슜?\xc2\x80 https://aka.ms/cpp/structured-output??李몄“?섏꽭??
+          "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ix7ge4\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_d524f.dir\\Debug\\cmTC_d524f.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+        InitializeBuildStatus:
+          "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"cmTC_d524f.dir\\Debug\\cmTC_d524f.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_d524f.dir\\Debug\\cmTC_d524f.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_d524f.dir\\Debug\\\\" /Fd"cmTC_d524f.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ 理쒖쟻??而댄뙆?쇰윭 踰꾩쟾 19.43.34808(x64)
+          Copyright (c) Microsoft Corporation. All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_d524f.dir\\Debug\\\\" /Fd"cmTC_d524f.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ix7ge4\\Debug\\cmTC_d524f.exe" /INCREMENTAL /ILK:"cmTC_d524f.dir\\Debug\\cmTC_d524f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ix7ge4/Debug/cmTC_d524f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/build_vs2022_x64/CMakeFiles/CMakeScratch/TryCompile-ix7ge4/Debug/cmTC_d524f.lib" /MACHINE:X64  /machine:x64 cmTC_d524f.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_d524f.vcxproj -> C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ix7ge4\\Debug\\cmTC_d524f.exe
+        FinalizeBuildStatus:
+          "cmTC_d524f.dir\\Debug\\cmTC_d524f.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
+          "cmTC_d524f.dir\\Debug\\cmTC_d524f.tlog\\cmTC_d524f.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        "C:\\Users\\hyeon-308-9\\Network_IOCP_FianlProject\\GameServer\\recastnavigation\\build_vs2022_x64\\CMakeFiles\\CMakeScratch\\TryCompile-ix7ge4\\cmTC_d524f.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
+        
+        鍮뚮뱶?덉뒿?덈떎.
+            寃쎄퀬 0媛?
+            ?ㅻ쪟 0媛?
+        
+        寃쎄낵 ?쒓컙: 00:00:00.53
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.43.34808.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/FindPkgConfig.cmake:517 (find_program)"
+      - "RecastDemo/cmake/FindSDL2.cmake:54 (find_package)"
+      - "RecastDemo/CMakeLists.txt:20 (find_package)"
+    mode: "program"
+    variable: "PKG_CONFIG_EXECUTABLE"
+    description: "pkg-config executable"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pkg-config.bat"
+      - "pkg-config"
+      - "pkgconf"
+    candidate_directories:
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/CMake/sbin/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "C:/Program Files/RecastNavigation/sbin/"
+      - "C:/Program Files/RecastNavigation/"
+    searched_directories:
+      - "C:/Windows/System32/pkg-config.bat.com"
+      - "C:/Windows/System32/pkg-config.bat.exe"
+      - "C:/Windows/System32/pkg-config.bat"
+      - "C:/Windows/System32/pkg-config.com"
+      - "C:/Windows/System32/pkg-config.exe"
+      - "C:/Windows/System32/pkg-config"
+      - "C:/Windows/System32/pkgconf.com"
+      - "C:/Windows/System32/pkgconf.exe"
+      - "C:/Windows/System32/pkgconf"
+      - "C:/Windows/pkg-config.bat.com"
+      - "C:/Windows/pkg-config.bat.exe"
+      - "C:/Windows/pkg-config.bat"
+      - "C:/Windows/pkg-config.com"
+      - "C:/Windows/pkg-config.exe"
+      - "C:/Windows/pkg-config"
+      - "C:/Windows/pkgconf.com"
+      - "C:/Windows/pkgconf.exe"
+      - "C:/Windows/pkgconf"
+      - "C:/Windows/System32/wbem/pkg-config.bat.com"
+      - "C:/Windows/System32/wbem/pkg-config.bat.exe"
+      - "C:/Windows/System32/wbem/pkg-config.bat"
+      - "C:/Windows/System32/wbem/pkg-config.com"
+      - "C:/Windows/System32/wbem/pkg-config.exe"
+      - "C:/Windows/System32/wbem/pkg-config"
+      - "C:/Windows/System32/wbem/pkgconf.com"
+      - "C:/Windows/System32/wbem/pkgconf.exe"
+      - "C:/Windows/System32/wbem/pkgconf"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat.com"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat.exe"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat"
+      - "C:/Windows/System32/OpenSSH/pkg-config.com"
+      - "C:/Windows/System32/OpenSSH/pkg-config.exe"
+      - "C:/Windows/System32/OpenSSH/pkg-config"
+      - "C:/Windows/System32/OpenSSH/pkgconf.com"
+      - "C:/Windows/System32/OpenSSH/pkgconf.exe"
+      - "C:/Windows/System32/OpenSSH/pkgconf"
+      - "C:/Program Files/dotnet/pkg-config.bat.com"
+      - "C:/Program Files/dotnet/pkg-config.bat.exe"
+      - "C:/Program Files/dotnet/pkg-config.bat"
+      - "C:/Program Files/dotnet/pkg-config.com"
+      - "C:/Program Files/dotnet/pkg-config.exe"
+      - "C:/Program Files/dotnet/pkg-config"
+      - "C:/Program Files/dotnet/pkgconf.com"
+      - "C:/Program Files/dotnet/pkgconf.exe"
+      - "C:/Program Files/dotnet/pkgconf"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config.bat.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config.bat.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config.bat"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkg-config"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkgconf.com"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkgconf.exe"
+      - "C:/Program Files/Common Files/Autodesk Shared/pkgconf"
+      - "C:/Program Files/Memurai/pkg-config.bat.com"
+      - "C:/Program Files/Memurai/pkg-config.bat.exe"
+      - "C:/Program Files/Memurai/pkg-config.bat"
+      - "C:/Program Files/Memurai/pkg-config.com"
+      - "C:/Program Files/Memurai/pkg-config.exe"
+      - "C:/Program Files/Memurai/pkg-config"
+      - "C:/Program Files/Memurai/pkgconf.com"
+      - "C:/Program Files/Memurai/pkgconf.exe"
+      - "C:/Program Files/Memurai/pkgconf"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config.bat.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config.bat.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config.bat"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkg-config"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkgconf.com"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkgconf.exe"
+      - "C:/Program Files/Docker/Docker/resources/bin/pkgconf"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/bin/pkg-config.bat"
+      - "C:/Program Files/CMake/bin/pkg-config.com"
+      - "C:/Program Files/CMake/bin/pkg-config.exe"
+      - "C:/Program Files/CMake/bin/pkg-config"
+      - "C:/Program Files/CMake/bin/pkgconf.com"
+      - "C:/Program Files/CMake/bin/pkgconf.exe"
+      - "C:/Program Files/CMake/bin/pkgconf"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config.bat.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config.bat.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config.bat"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkg-config"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkgconf.com"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkgconf.exe"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/pkgconf"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config.bat.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config.bat.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config.bat"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkg-config"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkgconf.com"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkgconf.exe"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/pkgconf"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config.bat.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config.bat.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config.bat"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkg-config"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkgconf.com"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkgconf.exe"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/pkgconf"
+      - "C:/Program Files/bin/pkg-config.bat.com"
+      - "C:/Program Files/bin/pkg-config.bat.exe"
+      - "C:/Program Files/bin/pkg-config.bat"
+      - "C:/Program Files/bin/pkg-config.com"
+      - "C:/Program Files/bin/pkg-config.exe"
+      - "C:/Program Files/bin/pkg-config"
+      - "C:/Program Files/bin/pkgconf.com"
+      - "C:/Program Files/bin/pkgconf.exe"
+      - "C:/Program Files/bin/pkgconf"
+      - "C:/Program Files/sbin/pkg-config.bat.com"
+      - "C:/Program Files/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/sbin/pkg-config.bat"
+      - "C:/Program Files/sbin/pkg-config.com"
+      - "C:/Program Files/sbin/pkg-config.exe"
+      - "C:/Program Files/sbin/pkg-config"
+      - "C:/Program Files/sbin/pkgconf.com"
+      - "C:/Program Files/sbin/pkgconf.exe"
+      - "C:/Program Files/sbin/pkgconf"
+      - "C:/Program Files/pkg-config.bat.com"
+      - "C:/Program Files/pkg-config.bat.exe"
+      - "C:/Program Files/pkg-config.bat"
+      - "C:/Program Files/pkg-config.com"
+      - "C:/Program Files/pkg-config.exe"
+      - "C:/Program Files/pkg-config"
+      - "C:/Program Files/pkgconf.com"
+      - "C:/Program Files/pkgconf.exe"
+      - "C:/Program Files/pkgconf"
+      - "C:/Program Files (x86)/bin/pkg-config.bat.com"
+      - "C:/Program Files (x86)/bin/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/bin/pkg-config.bat"
+      - "C:/Program Files (x86)/bin/pkg-config.com"
+      - "C:/Program Files (x86)/bin/pkg-config.exe"
+      - "C:/Program Files (x86)/bin/pkg-config"
+      - "C:/Program Files (x86)/bin/pkgconf.com"
+      - "C:/Program Files (x86)/bin/pkgconf.exe"
+      - "C:/Program Files (x86)/bin/pkgconf"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat.com"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat"
+      - "C:/Program Files (x86)/sbin/pkg-config.com"
+      - "C:/Program Files (x86)/sbin/pkg-config.exe"
+      - "C:/Program Files (x86)/sbin/pkg-config"
+      - "C:/Program Files (x86)/sbin/pkgconf.com"
+      - "C:/Program Files (x86)/sbin/pkgconf.exe"
+      - "C:/Program Files (x86)/sbin/pkgconf"
+      - "C:/Program Files (x86)/pkg-config.bat.com"
+      - "C:/Program Files (x86)/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/pkg-config.bat"
+      - "C:/Program Files (x86)/pkg-config.com"
+      - "C:/Program Files (x86)/pkg-config.exe"
+      - "C:/Program Files (x86)/pkg-config"
+      - "C:/Program Files (x86)/pkgconf.com"
+      - "C:/Program Files (x86)/pkgconf.exe"
+      - "C:/Program Files (x86)/pkgconf"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/bin/pkg-config.bat"
+      - "C:/Program Files/CMake/bin/pkg-config.com"
+      - "C:/Program Files/CMake/bin/pkg-config.exe"
+      - "C:/Program Files/CMake/bin/pkg-config"
+      - "C:/Program Files/CMake/bin/pkgconf.com"
+      - "C:/Program Files/CMake/bin/pkgconf.exe"
+      - "C:/Program Files/CMake/bin/pkgconf"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat"
+      - "C:/Program Files/CMake/sbin/pkg-config.com"
+      - "C:/Program Files/CMake/sbin/pkg-config.exe"
+      - "C:/Program Files/CMake/sbin/pkg-config"
+      - "C:/Program Files/CMake/sbin/pkgconf.com"
+      - "C:/Program Files/CMake/sbin/pkgconf.exe"
+      - "C:/Program Files/CMake/sbin/pkgconf"
+      - "C:/Program Files/CMake/pkg-config.bat.com"
+      - "C:/Program Files/CMake/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/pkg-config.bat"
+      - "C:/Program Files/CMake/pkg-config.com"
+      - "C:/Program Files/CMake/pkg-config.exe"
+      - "C:/Program Files/CMake/pkg-config"
+      - "C:/Program Files/CMake/pkgconf.com"
+      - "C:/Program Files/CMake/pkgconf.exe"
+      - "C:/Program Files/CMake/pkgconf"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config.bat.com"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config.bat.exe"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config.bat"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config.com"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config.exe"
+      - "C:/Program Files/RecastNavigation/bin/pkg-config"
+      - "C:/Program Files/RecastNavigation/bin/pkgconf.com"
+      - "C:/Program Files/RecastNavigation/bin/pkgconf.exe"
+      - "C:/Program Files/RecastNavigation/bin/pkgconf"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config.bat.com"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config.bat"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config.com"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config.exe"
+      - "C:/Program Files/RecastNavigation/sbin/pkg-config"
+      - "C:/Program Files/RecastNavigation/sbin/pkgconf.com"
+      - "C:/Program Files/RecastNavigation/sbin/pkgconf.exe"
+      - "C:/Program Files/RecastNavigation/sbin/pkgconf"
+      - "C:/Program Files/RecastNavigation/pkg-config.bat.com"
+      - "C:/Program Files/RecastNavigation/pkg-config.bat.exe"
+      - "C:/Program Files/RecastNavigation/pkg-config.bat"
+      - "C:/Program Files/RecastNavigation/pkg-config.com"
+      - "C:/Program Files/RecastNavigation/pkg-config.exe"
+      - "C:/Program Files/RecastNavigation/pkg-config"
+      - "C:/Program Files/RecastNavigation/pkgconf.com"
+      - "C:/Program Files/RecastNavigation/pkgconf.exe"
+      - "C:/Program Files/RecastNavigation/pkgconf"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/RecastNavigation"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "RecastDemo/cmake/FindSDL2.cmake:69 (find_library)"
+      - "RecastDemo/CMakeLists.txt:20 (find_package)"
+    mode: "library"
+    variable: "SDL2_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "SDL2"
+    candidate_directories:
+      - "C:/Windows/System32/lib/"
+      - "C:/Windows/System32/SDL2/"
+      - "C:/Windows/System32/lib/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/lib/"
+      - "C:/Windows/SDL2/"
+      - "C:/Windows/lib/x64/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/lib/"
+      - "C:/Windows/System32/wbem/SDL2/"
+      - "C:/Windows/System32/wbem/lib/x64/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/SDL2/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/x64/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/lib/"
+      - "C:/Windows/System32/OpenSSH/SDL2/"
+      - "C:/Windows/System32/OpenSSH/lib/x64/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/lib/"
+      - "C:/Program Files/dotnet/SDL2/"
+      - "C:/Program Files/dotnet/lib/x64/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL2/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/"
+      - "C:/Program Files/Common Files/Autodesk Shared/SDL2/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/x64/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/lib/"
+      - "C:/Program Files/Memurai/SDL2/"
+      - "C:/Program Files/Memurai/lib/x64/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/"
+      - "C:/Program Files/Docker/Docker/resources/bin/SDL2/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/x64/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/lib/"
+      - "C:/Program Files/CMake/bin/SDL2/"
+      - "C:/Program Files/CMake/bin/lib/x64/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/SDL2/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/x64/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/SDL2/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/x64/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/SDL2/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/x64/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/lib/lib/"
+      - "C:/Program Files/lib/SDL2/"
+      - "C:/Program Files/lib/lib/x64/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/SDL2/"
+      - "C:/Program Files/lib/x64/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/lib/"
+      - "C:/Program Files (x86)/lib/SDL2/"
+      - "C:/Program Files (x86)/lib/lib/x64/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/SDL2/"
+      - "C:/Program Files (x86)/lib/x64/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/lib/"
+      - "C:/Program Files/CMake/lib/SDL2/"
+      - "C:/Program Files/CMake/lib/lib/x64/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/SDL2/"
+      - "C:/Program Files/CMake/lib/x64/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/lib/lib/"
+      - "C:/Program Files/RecastNavigation/lib/SDL2/"
+      - "C:/Program Files/RecastNavigation/lib/lib/x64/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/SDL2/"
+      - "C:/Program Files/RecastNavigation/lib/x64/"
+      - "C:/Program Files/RecastNavigation/"
+      - "C:/Program Files/RecastNavigation/bin/lib/"
+      - "C:/Program Files/RecastNavigation/bin/SDL2/"
+      - "C:/Program Files/RecastNavigation/bin/lib/x64/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "/bin/lib/"
+      - "/bin/SDL2/"
+      - "/bin/lib/x64/"
+      - "/bin/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/SDL2/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/x64/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/"
+    searched_directories:
+      - "C:/Windows/System32/lib/"
+      - "C:/Windows/System32/SDL2/"
+      - "C:/Windows/System32/lib/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/lib/"
+      - "C:/Windows/SDL2/"
+      - "C:/Windows/lib/x64/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/lib/"
+      - "C:/Windows/System32/wbem/SDL2/"
+      - "C:/Windows/System32/wbem/lib/x64/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/SDL2/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/x64/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/lib/"
+      - "C:/Windows/System32/OpenSSH/SDL2/"
+      - "C:/Windows/System32/OpenSSH/lib/x64/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/lib/"
+      - "C:/Program Files/dotnet/SDL2/"
+      - "C:/Program Files/dotnet/lib/x64/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL2/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/"
+      - "C:/Program Files/Common Files/Autodesk Shared/SDL2/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/x64/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/lib/"
+      - "C:/Program Files/Memurai/SDL2/"
+      - "C:/Program Files/Memurai/lib/x64/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/"
+      - "C:/Program Files/Docker/Docker/resources/bin/SDL2/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/x64/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/lib/"
+      - "C:/Program Files/CMake/bin/SDL2/"
+      - "C:/Program Files/CMake/bin/lib/x64/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/SDL2/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/x64/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/SDL2/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/x64/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/SDL2/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/x64/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/lib/lib/"
+      - "C:/Program Files/lib/SDL2/"
+      - "C:/Program Files/lib/lib/x64/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/SDL2/"
+      - "C:/Program Files/lib/x64/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/lib/"
+      - "C:/Program Files (x86)/lib/SDL2/"
+      - "C:/Program Files (x86)/lib/lib/x64/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/SDL2/"
+      - "C:/Program Files (x86)/lib/x64/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/lib/"
+      - "C:/Program Files/CMake/lib/SDL2/"
+      - "C:/Program Files/CMake/lib/lib/x64/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/SDL2/"
+      - "C:/Program Files/CMake/lib/x64/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/lib/lib/"
+      - "C:/Program Files/RecastNavigation/lib/SDL2/"
+      - "C:/Program Files/RecastNavigation/lib/lib/x64/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/SDL2/"
+      - "C:/Program Files/RecastNavigation/lib/x64/"
+      - "C:/Program Files/RecastNavigation/"
+      - "C:/Program Files/RecastNavigation/bin/lib/"
+      - "C:/Program Files/RecastNavigation/bin/SDL2/"
+      - "C:/Program Files/RecastNavigation/bin/lib/x64/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "/bin/lib/"
+      - "/bin/SDL2/"
+      - "/bin/lib/x64/"
+      - "/bin/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/SDL2/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/x64/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/RecastNavigation/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "RecastDemo/cmake/FindSDL2.cmake:104 (find_path)"
+      - "RecastDemo/CMakeLists.txt:20 (find_package)"
+    mode: "path"
+    variable: "SDL2_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "SDL_haptic.h"
+    candidate_directories:
+      - "C:/Windows/System32/include/"
+      - "C:/Windows/System32/include/sdl2/"
+      - "C:/Windows/System32/include/SDL2/"
+      - "C:/Windows/System32/SDL2/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/include/"
+      - "C:/Windows/include/sdl2/"
+      - "C:/Windows/include/SDL2/"
+      - "C:/Windows/SDL2/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/include/"
+      - "C:/Windows/System32/wbem/include/sdl2/"
+      - "C:/Windows/System32/wbem/include/SDL2/"
+      - "C:/Windows/System32/wbem/SDL2/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/sdl2/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/SDL2/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/SDL2/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/include/"
+      - "C:/Windows/System32/OpenSSH/include/sdl2/"
+      - "C:/Windows/System32/OpenSSH/include/SDL2/"
+      - "C:/Windows/System32/OpenSSH/SDL2/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/include/"
+      - "C:/Program Files/dotnet/include/sdl2/"
+      - "C:/Program Files/dotnet/include/SDL2/"
+      - "C:/Program Files/dotnet/SDL2/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/sdl2/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/SDL2/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL2/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/sdl2/"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/SDL2/"
+      - "C:/Program Files/Common Files/Autodesk Shared/SDL2/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/include/"
+      - "C:/Program Files/Memurai/include/sdl2/"
+      - "C:/Program Files/Memurai/include/SDL2/"
+      - "C:/Program Files/Memurai/SDL2/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/sdl2/"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/SDL2/"
+      - "C:/Program Files/Docker/Docker/resources/bin/SDL2/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/include/"
+      - "C:/Program Files/CMake/bin/include/sdl2/"
+      - "C:/Program Files/CMake/bin/include/SDL2/"
+      - "C:/Program Files/CMake/bin/SDL2/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/sdl2/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/SDL2/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/SDL2/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/sdl2/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/SDL2/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/SDL2/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/sdl2/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/SDL2/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/SDL2/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/include/include/"
+      - "C:/Program Files/include/include/sdl2/"
+      - "C:/Program Files/include/include/SDL2/"
+      - "C:/Program Files/include/SDL2/"
+      - "C:/Program Files/include/"
+      - "C:/Program Files/include/"
+      - "C:/Program Files/include/sdl2/"
+      - "C:/Program Files/include/SDL2/"
+      - "C:/Program Files/SDL2/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/include/include/"
+      - "C:/Program Files (x86)/include/include/sdl2/"
+      - "C:/Program Files (x86)/include/include/SDL2/"
+      - "C:/Program Files (x86)/include/SDL2/"
+      - "C:/Program Files (x86)/include/"
+      - "C:/Program Files (x86)/include/"
+      - "C:/Program Files (x86)/include/sdl2/"
+      - "C:/Program Files (x86)/include/SDL2/"
+      - "C:/Program Files (x86)/SDL2/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/include/include/"
+      - "C:/Program Files/CMake/include/include/sdl2/"
+      - "C:/Program Files/CMake/include/include/SDL2/"
+      - "C:/Program Files/CMake/include/SDL2/"
+      - "C:/Program Files/CMake/include/"
+      - "C:/Program Files/CMake/include/"
+      - "C:/Program Files/CMake/include/sdl2/"
+      - "C:/Program Files/CMake/include/SDL2/"
+      - "C:/Program Files/CMake/SDL2/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/include/include/"
+      - "C:/Program Files/RecastNavigation/include/include/sdl2/"
+      - "C:/Program Files/RecastNavigation/include/include/SDL2/"
+      - "C:/Program Files/RecastNavigation/include/SDL2/"
+      - "C:/Program Files/RecastNavigation/include/"
+      - "C:/Program Files/RecastNavigation/include/"
+      - "C:/Program Files/RecastNavigation/include/sdl2/"
+      - "C:/Program Files/RecastNavigation/include/SDL2/"
+      - "C:/Program Files/RecastNavigation/SDL2/"
+      - "C:/Program Files/RecastNavigation/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/sdl2/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/SDL2/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/SDL2/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/"
+    searched_directories:
+      - "C:/Windows/System32/include/SDL_haptic.h"
+      - "C:/Windows/System32/include/sdl2/SDL_haptic.h"
+      - "C:/Windows/System32/include/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/SDL_haptic.h"
+      - "C:/Windows/include/SDL_haptic.h"
+      - "C:/Windows/include/sdl2/SDL_haptic.h"
+      - "C:/Windows/include/SDL2/SDL_haptic.h"
+      - "C:/Windows/SDL2/SDL_haptic.h"
+      - "C:/Windows/SDL_haptic.h"
+      - "C:/Windows/System32/wbem/include/SDL_haptic.h"
+      - "C:/Windows/System32/wbem/include/sdl2/SDL_haptic.h"
+      - "C:/Windows/System32/wbem/include/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/wbem/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/wbem/SDL_haptic.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/SDL_haptic.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/sdl2/SDL_haptic.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/include/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/SDL_haptic.h"
+      - "C:/Windows/System32/OpenSSH/include/SDL_haptic.h"
+      - "C:/Windows/System32/OpenSSH/include/sdl2/SDL_haptic.h"
+      - "C:/Windows/System32/OpenSSH/include/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/OpenSSH/SDL2/SDL_haptic.h"
+      - "C:/Windows/System32/OpenSSH/SDL_haptic.h"
+      - "C:/Program Files/dotnet/include/SDL_haptic.h"
+      - "C:/Program Files/dotnet/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/dotnet/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/dotnet/SDL2/SDL_haptic.h"
+      - "C:/Program Files/dotnet/SDL_haptic.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/SDL_haptic.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL_haptic.h"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/SDL_haptic.h"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/Common Files/Autodesk Shared/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Common Files/Autodesk Shared/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Common Files/Autodesk Shared/SDL_haptic.h"
+      - "C:/Program Files/Memurai/include/SDL_haptic.h"
+      - "C:/Program Files/Memurai/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/Memurai/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Memurai/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Memurai/SDL_haptic.h"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/SDL_haptic.h"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/Docker/Docker/resources/bin/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Docker/Docker/resources/bin/SDL2/SDL_haptic.h"
+      - "C:/Program Files/Docker/Docker/resources/bin/SDL_haptic.h"
+      - "C:/Program Files/CMake/bin/include/SDL_haptic.h"
+      - "C:/Program Files/CMake/bin/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/CMake/bin/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/bin/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/bin/SDL_haptic.h"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/SDL_haptic.h"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/SDL2/SDL_haptic.h"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/sdl2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/include/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/sdl2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/include/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/SDL_haptic.h"
+      - "C:/Program Files/include/include/SDL_haptic.h"
+      - "C:/Program Files/include/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/include/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/include/SDL_haptic.h"
+      - "C:/Program Files/include/SDL_haptic.h"
+      - "C:/Program Files/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/SDL2/SDL_haptic.h"
+      - "C:/Program Files/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/include/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files (x86)/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/SDL2/SDL_haptic.h"
+      - "C:/Program Files (x86)/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/include/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/CMake/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/SDL2/SDL_haptic.h"
+      - "C:/Program Files/CMake/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/include/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/sdl2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/include/SDL2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/SDL2/SDL_haptic.h"
+      - "C:/Program Files/RecastNavigation/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/sdl2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/include/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/SDL2/SDL_haptic.h"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/SDL_haptic.h"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/RecastNavigation"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "RecastDemo/cmake/FindSDL2.cmake:130 (find_library)"
+      - "RecastDemo/CMakeLists.txt:20 (find_package)"
+    mode: "library"
+    variable: "SDL2_SDLMAIN_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "SDL2main"
+    candidate_directories:
+      - "C:/Windows/System32/lib/"
+      - "C:/Windows/System32/lib/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/lib/"
+      - "C:/Windows/lib/x64/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/lib/"
+      - "C:/Windows/System32/wbem/lib/x64/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/x64/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/lib/"
+      - "C:/Windows/System32/OpenSSH/lib/x64/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/lib/"
+      - "C:/Program Files/dotnet/lib/x64/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/x64/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/lib/"
+      - "C:/Program Files/Memurai/lib/x64/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/x64/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/lib/"
+      - "C:/Program Files/CMake/bin/lib/x64/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/x64/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/x64/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/x64/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/lib/lib/"
+      - "C:/Program Files/lib/lib/x64/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/x64/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/lib/"
+      - "C:/Program Files (x86)/lib/lib/x64/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/x64/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/lib/"
+      - "C:/Program Files/CMake/lib/lib/x64/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/x64/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/lib/lib/"
+      - "C:/Program Files/RecastNavigation/lib/lib/x64/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/x64/"
+      - "C:/Program Files/RecastNavigation/"
+      - "C:/Program Files/RecastNavigation/bin/lib/"
+      - "C:/Program Files/RecastNavigation/bin/lib/x64/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "/bin/lib/"
+      - "/bin/lib/x64/"
+      - "/bin/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/x64/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/"
+    searched_directories:
+      - "C:/Windows/System32/lib/"
+      - "C:/Windows/System32/lib/x64/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/lib/"
+      - "C:/Windows/lib/x64/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/lib/"
+      - "C:/Windows/System32/wbem/lib/x64/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lib/x64/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/lib/"
+      - "C:/Windows/System32/OpenSSH/lib/x64/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/dotnet/lib/"
+      - "C:/Program Files/dotnet/lib/x64/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lib/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/"
+      - "C:/Program Files/Common Files/Autodesk Shared/lib/x64/"
+      - "C:/Program Files/Common Files/Autodesk Shared/"
+      - "C:/Program Files/Memurai/lib/"
+      - "C:/Program Files/Memurai/lib/x64/"
+      - "C:/Program Files/Memurai/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/"
+      - "C:/Program Files/Docker/Docker/resources/bin/lib/x64/"
+      - "C:/Program Files/Docker/Docker/resources/bin/"
+      - "C:/Program Files/CMake/bin/lib/"
+      - "C:/Program Files/CMake/bin/lib/x64/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/lib/x64/"
+      - "C:/Program Files/MySQL/MySQL Shell 8.0/bin/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/lib/x64/"
+      - "C:/Users/hyeon-308-9/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/lib/x64/"
+      - "C:/Users/hyeon-308-9/.dotnet/tools/"
+      - "C:/Program Files/lib/lib/"
+      - "C:/Program Files/lib/lib/x64/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/lib/x64/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/lib/"
+      - "C:/Program Files (x86)/lib/lib/x64/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/lib/x64/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/lib/"
+      - "C:/Program Files/CMake/lib/lib/x64/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/lib/x64/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/RecastNavigation/lib/lib/"
+      - "C:/Program Files/RecastNavigation/lib/lib/x64/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/"
+      - "C:/Program Files/RecastNavigation/lib/x64/"
+      - "C:/Program Files/RecastNavigation/"
+      - "C:/Program Files/RecastNavigation/bin/lib/"
+      - "C:/Program Files/RecastNavigation/bin/lib/x64/"
+      - "C:/Program Files/RecastNavigation/bin/"
+      - "/bin/lib/"
+      - "/bin/lib/x64/"
+      - "/bin/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/lib/x64/"
+      - "C:/Users/hyeon-308-9/Network_IOCP_FianlProject/GameServer/recastnavigation/RecastDemo/Contrib/SDL/"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Common Files\\Autodesk Shared\\"
+        - "C:\\Program Files\\Memurai\\"
+        - "C:\\Program Files\\Docker\\Docker\\resources\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\"
+        - "C:\\Users\\hyeon-308-9\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\hyeon-308-9\\.dotnet\\tools"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/RecastNavigation"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/RecastNavigation/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+...
