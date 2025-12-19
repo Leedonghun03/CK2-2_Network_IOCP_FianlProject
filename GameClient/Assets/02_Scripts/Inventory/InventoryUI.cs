@@ -59,20 +59,23 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateInventory(Item[] items)
     {
-        // 모든 슬롯 초기화
-        foreach (var slot in itemSlots)
+        if (items == null) return;
+
+        int count = Mathf.Min(itemSlots.Count, items.Length);
+
+        for (int i = 0; i < count; i++)
         {
-            slot.ClearSlot();
+            var item = items[i];
+
+            // 빈 슬롯 처리
+            if (item.itemID == 0 || item.quantity == 0)
+                itemSlots[i].ClearSlot();
+            else
+                itemSlots[i].SetItem(item);
         }
 
-        // 아이템 표시
-        for (int i = 0; i < items.Length && i < itemSlots.Count; i++)
-        {
-            if (items[i].itemID != 0)
-            {
-                itemSlots[i].SetItem(items[i]);
-            }
-        }
+        for (int i = count; i < itemSlots.Count; i++)
+            itemSlots[i].ClearSlot();
     }
 
     public void ToggleInventory()

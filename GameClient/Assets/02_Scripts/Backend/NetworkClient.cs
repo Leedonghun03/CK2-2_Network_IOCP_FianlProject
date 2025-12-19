@@ -160,6 +160,8 @@ public unsafe class NetworkClient
 
     public void HandlePacket(Packet packet)
     {
+        Debug.Log($"[NET RECV] id={packet.pbase.packet_id} len={packet.pbase.length} receivers={packetReceivers.Count}");
+
         for (int i = 0; i < packetReceivers.Count; i++)
         {
             packetReceivers[i].OnPacketReceived(packet);

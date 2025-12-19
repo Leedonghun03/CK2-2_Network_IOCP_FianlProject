@@ -42,6 +42,8 @@ public enum E_PACKET : ushort
     QUEST_ACCEPT_REQUEST = 503,
     QUEST_ACCEPT_RESPONSE = 504,
     QUEST_PROGRESS_NOTIFY = 505,
+    QUEST_COMPLETE_REQUEST = 506,
+    QUEST_COMPLETE_RESPONSE = 507,
 }
 
 public enum ITEM_TYPE : ushort
@@ -168,29 +170,27 @@ struct P_PlayerLeft
 }
 
 // ================= 이벤토리 =========================
-[StructLayout(LayoutKind.Sequential, Size = 40)]
+[StructLayout(LayoutKind.Sequential, Pack = 1, Size = 40, CharSet = CharSet.Ansi)]
 public struct Item
 {
-    [MarshalAs(UnmanagedType.U4)]
+    [MarshalAs(UnmanagedType.U4)] 
     public uint itemID;
-
-    [MarshalAs(UnmanagedType.U2)]
+    [MarshalAs(UnmanagedType.U2)] 
     public ITEM_TYPE itemType;
-
-    [MarshalAs(UnmanagedType.U2)]
+    [MarshalAs(UnmanagedType.U2)] 
     public ushort quantity;
 
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
     public string itemName;
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 struct P_InventoryInfoRequest
 {
     // 빈 구조체
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 struct P_ItemAddRequest
 {
     [MarshalAs(UnmanagedType.U4)]
@@ -200,7 +200,7 @@ struct P_ItemAddRequest
     public ushort quantity;
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 struct P_ItemUseRequest
 {
     [MarshalAs(UnmanagedType.U2)]
@@ -335,12 +335,14 @@ public struct P_QuestTalkRequest
     [MarshalAs(UnmanagedType.I4)] public int npc_id;
 }
 
-[StructLayout(LayoutKind.Sequential, Size = 128)]
+[StructLayout(LayoutKind.Sequential, Pack = 1, Size = 128, CharSet = CharSet.Ansi)]
 public struct P_QuestTalkResponse
 {
     [MarshalAs(UnmanagedType.I4)] public int npc_id;
     [MarshalAs(UnmanagedType.I4)] public int quest_id;
+
     [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
+    [MarshalAs(UnmanagedType.U1)] public byte _pad0; // 서버 _pad0
 
     [MarshalAs(UnmanagedType.U2)] public ushort current;
     [MarshalAs(UnmanagedType.U2)] public ushort required;
@@ -350,6 +352,8 @@ public struct P_QuestTalkResponse
 
     [MarshalAs(UnmanagedType.U4)] public uint rewardItemID;
     [MarshalAs(UnmanagedType.U2)] public ushort rewardQty;
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)] public byte[] _padTail; // 서버 _padTail[12]
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -359,23 +363,41 @@ public struct P_QuestAcceptRequest
     [MarshalAs(UnmanagedType.I4)] public int quest_id;
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, Pack = 1, Size = 16)]
 public struct P_QuestAcceptResponse
 {
     [MarshalAs(UnmanagedType.I4)] public int quest_id;
-    [MarshalAs(UnmanagedType.U1)] public byte result; // 1=성공
+    [MarshalAs(UnmanagedType.U1)] public byte result;
     [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
 
     [MarshalAs(UnmanagedType.U2)] public ushort current;
     [MarshalAs(UnmanagedType.U2)] public ushort required;
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)] public byte[] _padTail;
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct P_QuestProgressNotify
 {
     [MarshalAs(UnmanagedType.I4)] public int quest_id;
     [MarshalAs(UnmanagedType.U2)] public ushort current;
     [MarshalAs(UnmanagedType.U2)] public ushort required;
     [MarshalAs(UnmanagedType.U1)] public QUEST_STATE state;
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public byte[] _pad; // 서버 _pad[3]
+}
+
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct P_QuestCompleteRequest
+{
+    [MarshalAs(UnmanagedType.I4)] public int QuestId;
+}
+
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct P_QuestCompleteResponse
+{
+    [MarshalAs(UnmanagedType.U2)] public ushort Result;  // 0 = 성공
+    [MarshalAs(UnmanagedType.I4)] public int QuestId;
+    [MarshalAs(UnmanagedType.U1)] public QUEST_STATE State;
 }
 // ===================================================

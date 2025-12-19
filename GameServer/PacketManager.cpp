@@ -619,6 +619,7 @@ void PacketManager::ProcessItemUseRequest(UINT32 clientIndex_, UINT16 packetSize
 // ====================== Quest =====================
 void PacketManager::ProcessQuestTalk(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
+	printf("[QuestTalk] recv from client=%u\n", clientIndex_);
 	User* pUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
 	if (!pUser) return;
 
