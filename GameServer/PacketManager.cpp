@@ -367,21 +367,30 @@ void PacketManager::ProcessEnterRoom(UINT32 clientIndex_, UINT16 packetSize_, ch
 
 	auto pRoom = mRoomManager->GetRoomByNumber(roomNumber);
 
-
-	// 방안 유저들에게 입장하는 유저 정보 전송
-	pRoom->NotifyUserEnter(clientIndex_, pReqUser->GetUserId());
-	
+	// 방안 유저들에게 입장하는 유저의 실제 위치와 회전값을 전달
+	pRoom->NotifyUserEnter(clientIndex_, pReqUser->GetUserId(), pReqUser->GetPosition(), pReqUser->GetRotation());
 }
 
 void PacketManager::ProcessEnterRoomByPlayerJoined(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
-	UNREFERENCED_PARAMETER(packetSize_);
-	UNREFERENCED_PARAMETER(pPacket_);
-
 	auto pReqUser = mUserManager->GetUserByConnIdx((INT32)clientIndex_);
 	if (!pReqUser) return;
 
-	const INT32 roomNumber = 0; // 일단 0번 방으로 고정 (필요하면 나중에 확장)
+	// 최소 크기 체크
+	if (packetSize_ < sizeof(ROOM_NEW_USER_NTF_PACKET))
+	{
+		printf("[EnterBy208] invalid packet size. client=%u size=%u\n", clientIndex_, packetSize_);
+		return;
+	}
+
+	// 클라가 보낸 입장 패킷에서 pos/rot 읽기
+	auto joinPkt = reinterpret_cast<ROOM_NEW_USER_NTF_PACKET*>(pPacket_);
+
+	// 서버 유저 상태에 반영 (이게 없으면 기본 0,0,0 그대로 방송됨)
+	pReqUser->SetPosition(joinPkt->position);
+	pReqUser->SetRotation(joinPkt->rotation);
+
+	const INT32 roomNumber = 0;
 
 	auto enterResult = mRoomManager->EnterUser(roomNumber, pReqUser);
 	if (enterResult != (UINT16)ERROR_CODE::NONE)
@@ -393,11 +402,13 @@ void PacketManager::ProcessEnterRoomByPlayerJoined(UINT32 clientIndex_, UINT16 p
 	auto pRoom = mRoomManager->GetRoomByNumber(roomNumber);
 	if (!pRoom) return;
 
-	// 방에 있는 유저들에게 "새 유저 입장(208)" 알림 (클라도 208 수신 처리함)
-	pRoom->NotifyUserEnter((INT32)clientIndex_, pReqUser->GetUserId());
+	// 방에 있는 유저들에게 "새 유저 입장(208)" 알림
+	pRoom->NotifyUserEnter(clientIndex_, pReqUser->GetUserId(),
+		pReqUser->GetPosition(), pReqUser->GetRotation());
 
 	printf("[EnterBy208] client=%u entered room=%d\n", clientIndex_, roomNumber);
 }
+
 
 void PacketManager::ProcessHitReport(UINT32 clientIndex_, UINT16 packetSize_, char* pPacket_)
 {
@@ -470,7 +481,7 @@ void PacketManager::ProcessPlayerMovement(UINT32 clientIndex_, UINT16 packetSize
 	}
 
 	UPDATE_PLAYER_MOVEMENT_PACKET updateMovement;
-	updateMovement.userUUID = playerMovement->userUUID;
+	updateMovement.player_id = playerMovement->userUUID;
 	updateMovement.rotation = playerMovement->rotation;
 	// Movement 처리
 	updateMovement.motion = reqUser->UpdateMovement(playerMovement->dx, playerMovement->dy, playerMovement->rotation);

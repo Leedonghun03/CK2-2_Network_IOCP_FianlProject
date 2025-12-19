@@ -84,60 +84,45 @@ struct P_LoginResponse
     public ushort Result;
 }
 
-[StructLayout(LayoutKind.Sequential, Size = 24)]
-struct P_PlayerJoined
+[StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+struct P_PlayerJoined // 208
 {
-    [MarshalAs(UnmanagedType.I8)]
     public long id;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-    public string name;
-}
-
-[StructLayout(LayoutKind.Sequential, Size = 56)]
-struct P_CreateMatchPlayer
-{
-    [MarshalAs(UnmanagedType.I8)]
-    public long id;
-
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 33)]
     public string name;
 
-    [MarshalAs(UnmanagedType.Struct)]
     public Vector3 position;
-
-    [MarshalAs(UnmanagedType.Struct)]
     public Quaternion rotation;
 }
 
-[StructLayout(LayoutKind.Sequential, Size = 32)]
-struct P_PlayerMovement
+[StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+struct P_CreateMatchPlayer // 209
 {
-    [MarshalAs(UnmanagedType.I8)]
-    public long player_id;
+    public long id;
 
-    [MarshalAs(UnmanagedType.R4)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 33)]
+    public string name;
+
+    public Vector3 position;
+    public Quaternion rotation;
+}
+
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+struct P_PlayerMovement // 218
+{
+    public long player_id;
     public float dx;
-
-    [MarshalAs(UnmanagedType.R4)]
     public float dy;
-
-    [MarshalAs(UnmanagedType.Struct)]
     public Quaternion rotation;
 }
 
-[StructLayout(LayoutKind.Sequential, Size = 40)]
-struct P_UpdatePlayerMovement
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct P_UpdatePlayerMovement // 219
 {
-    [MarshalAs(UnmanagedType.I8)]
     public long player_id;
-
-    [MarshalAs(UnmanagedType.Struct)]
     public Quaternion rotation;
-
-    [MarshalAs(UnmanagedType.Struct)]
-    public Vector3 motion;
-
+    public Vector3 motion; // 서버가 보내는 "이동량(delta)"
 }
 
 [StructLayout(LayoutKind.Sequential, Size = 64)]
@@ -157,13 +142,12 @@ struct P_ReceiveChatMessage
     public string message;
 }
 
-[StructLayout(LayoutKind.Sequential, Size = 24)]
-struct P_PlayerLeft
+[StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+struct P_PlayerLeft // 217
 {
-    [MarshalAs(UnmanagedType.I8)]
     public long id;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 33)]
     public string name;
 }
 

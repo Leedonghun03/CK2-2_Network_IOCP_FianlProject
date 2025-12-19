@@ -230,7 +230,7 @@ public unsafe class NetworkClient
         int size = Marshal.SizeOf(packet);
         byte* ptr = stackalloc byte[size];
         IntPtr ptr2 = (IntPtr)ptr;
-        Marshal.StructureToPtr(packet, ptr2, true);
+        Marshal.StructureToPtr(packet, ptr2, false);
         byte[] data = new byte[size];
         Marshal.Copy(ptr2, data, 0, size);
         SendData(packetId, data);

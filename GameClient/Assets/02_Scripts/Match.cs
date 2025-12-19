@@ -27,12 +27,14 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
     {
         // 로컬 플레이어 생성
         Vector3 spawnPos = GetRandomSpawnPosition();
-        AddPlayer(LocalPlayerInfo.ID, LocalPlayerInfo.Name, spawnPos);
+        AddPlayer(LocalPlayerInfo.ID, LocalPlayerInfo.Name, spawnPos, Quaternion.identity);
 
         P_PlayerJoined playerJoined = new P_PlayerJoined()
         {
             id = LocalPlayerInfo.ID,
-            name = LocalPlayerInfo.Name
+            name = LocalPlayerInfo.Name,
+            position = spawnPos,
+            rotation = Quaternion.identity
         };
         Client.TCP.SendPacket(E_PACKET.PLAYER_JOINED, playerJoined);
     }
@@ -92,15 +94,14 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
         switch ((E_PACKET)packetId)
         {
             case E_PACKET.PLAYER_JOINED:
-                P_PlayerJoined playerJoined = UnsafeCode.ByteArrayToStructure<P_PlayerJoined>(packet.data);
-                // 다른 플레이어는 기본 위치에 생성 (서버에서 위치 받을 예정)
-                AddPlayer(playerJoined.id, playerJoined.name, Vector3.zero);
-                Debug.Log($"Player {playerJoined.name} has joined");
+                var j = UnsafeCode.ByteArrayToStructure<P_PlayerJoined>(packet.data);
+                if (j.id == LocalPlayerInfo.ID) break; // 내꺼면 무시
+                AddPlayer(j.id, j.name, j.position, j.rotation);
                 break;
 
             case E_PACKET.CREATE_MATCH_PLAYER:
                 P_CreateMatchPlayer matchPlayer = UnsafeCode.ByteArrayToStructure<P_CreateMatchPlayer>(packet.data);
-                Player newPlayer = AddPlayer(matchPlayer.id, matchPlayer.name, matchPlayer.position);
+                Player newPlayer = AddPlayer(matchPlayer.id, matchPlayer.name, matchPlayer.position, matchPlayer.rotation);
                 if (newPlayer != null)
                 {
                     newPlayer.transform.position = matchPlayer.position;
@@ -138,8 +139,7 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
         }
     }
 
-    // 수정: position 파라미터 추가
-    private Player AddPlayer(long id, string playerName, Vector3 position)
+    private Player AddPlayer(long id, string playerName, Vector3 position, Quaternion rotation)
     {
         if (Players == null || Players.ContainsKey(id))
             return null;
@@ -152,8 +152,9 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
         if (PlayerPrefab != null)
         {
             // 프리팹 인스턴스화
-            playerObj = Instantiate(PlayerPrefab, position, Quaternion.identity);
-            playerObj.name = playerName;  // 이름 설정
+            playerObj = Instantiate(PlayerPrefab, position, rotation);
+            // 이름 설정
+            playerObj.name = playerName;
         }
         else
         {
@@ -162,6 +163,7 @@ public unsafe class Match : MonoBehaviour, IPacketReceiver
             playerObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             playerObj.name = playerName;
             playerObj.transform.position = position;
+            playerObj.transform.rotation = rotation;
         }
 
         // PlayerMovement 컴포넌트 추가/가져오기

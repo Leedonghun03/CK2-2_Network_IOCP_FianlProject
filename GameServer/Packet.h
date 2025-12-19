@@ -200,13 +200,14 @@ struct ROOM_ENTER_RESPONSE_PACKET : public PACKET_HEADER
 	ROOM_ENTER_RESPONSE_PACKET() : Result{ 0 }, PACKET_HEADER(sizeof(*this), PACKET_ID::ROOM_ENTER_RESPONSE) {}
 };
 
-
 struct ROOM_NEW_USER_NTF_PACKET : public PACKET_HEADER
 {
 	INT64 userUUID;
 	char userID[MAX_USER_ID_LEN + 1];
+	Vector3 position;
+	Quaternion rotation;
 
-	ROOM_NEW_USER_NTF_PACKET(): PACKET_HEADER(sizeof(*this), PACKET_ID::ROOM_NEW_USER_NTF) {}
+	ROOM_NEW_USER_NTF_PACKET() : PACKET_HEADER(sizeof(*this), PACKET_ID::ROOM_NEW_USER_NTF) {}
 };
 
 struct ROOM_USER_INFO_NTF_PACKET : public PACKET_HEADER
@@ -233,9 +234,11 @@ struct PLAYER_MOVEMENT_PACKET : public PACKET_HEADER
 
 struct UPDATE_PLAYER_MOVEMENT_PACKET : public PACKET_HEADER
 {
-	INT64 userUUID;
-	Quaternion rotation;
+	INT64 player_id;
 	Vector3 motion;
+	Quaternion rotation;
+
+	Vector3 position;
 
 	UPDATE_PLAYER_MOVEMENT_PACKET() : PACKET_HEADER(sizeof(*this), PACKET_ID::UPDATE_PLAYER_MOVEMENT) {}
 };

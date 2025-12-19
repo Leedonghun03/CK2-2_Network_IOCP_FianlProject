@@ -442,7 +442,7 @@ public:
 	{
 		Npc* newNpc = CreateNpc();
 		newNpc->EnterRoom(mRoomNum);
-		NotifyUserEnter(newNpc->GetNetConnIdx(), newNpc->GetUserId());
+		NotifyUserEnter(newNpc->GetNetConnIdx(), newNpc->GetUserId(), newNpc->GetPosition(), newNpc->GetRotation());
 		return (UINT16)ERROR_CODE::NONE;
 	}
 
@@ -470,14 +470,15 @@ public:
 		SendToAllUser(sizeof(roomChatNtfyPkt), (char*)&roomChatNtfyPkt, clientIndex_, false);
 	}
 
-	void NotifyUserEnter(INT32 clientIndex_, const std::string& userID)
-	{
-		ROOM_NEW_USER_NTF_PACKET roomNewUserNtfPkt;
-		roomNewUserNtfPkt.userUUID = clientIndex_;
-		CopyUserID(roomNewUserNtfPkt.userID, userID);
-		bool EXCEPT_ME = false; // 입장하는 유저도 본 패킷이 로직에 필요함
-		SendToAllUser(roomNewUserNtfPkt.PacketLength, (char*)&roomNewUserNtfPkt, clientIndex_, EXCEPT_ME);
-	}
+    void NotifyUserEnter(INT32 clientIndex_, const std::string& userID, const Vector3& pos, const Quaternion& rot)
+    {
+        ROOM_NEW_USER_NTF_PACKET pkt;
+        pkt.userUUID = clientIndex_;
+        CopyUserID(pkt.userID, userID);
+        pkt.position = pos;
+        pkt.rotation = rot;
+        SendToAllUser(pkt.PacketLength, (char*)&pkt, clientIndex_, false);
+    }
 
 		
 	std::function<void(UINT32, UINT32, char*)> SendPacketFunc;
