@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (horizontal != 0 || vertical != 0)
             {
-                Client.UDP.SendPacket(E_PACKET.PLAYER_MOVEMENT, playerMovement);
+                Client.TCP.SendPacket(E_PACKET.PLAYER_MOVEMENT, playerMovement);
 
                 // 애니메이션
                 if (animator != null)
