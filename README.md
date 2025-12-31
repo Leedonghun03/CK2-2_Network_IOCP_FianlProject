@@ -20,8 +20,8 @@
   3. 발표 PPT 제작
 <br/>
 
-###게임 실행 결과
-위의 해당 내용은 모두 구현이 완료 되었으며 코드 설명은 길어지므로 아래와 같이 사진으로 구현된 부분을 올리겠습니다.
+### 게임 실행 결과
+위의 해당 내용은 모두 구현이 완료 되었으며 코드 설명은 길어지므로 아래와 같이 사진으로 구현된 부분을 올리겠습니다. <br/>
 - LeeDongHun03(Sao) 이동훈<br/>
 <img width="747" height="488" alt="그림1" src="https://github.com/user-attachments/assets/f56ab636-502c-48d4-8008-ce6a33a286c0" />
 <img width="518" height="372" alt="그림2" src="https://github.com/user-attachments/assets/1d9937be-4473-479c-ab86-78644b64c5dd" />
